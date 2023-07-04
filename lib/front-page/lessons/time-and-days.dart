@@ -1,25 +1,48 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application/front-page/lessons/widgets/back_button.dart';
 
-class Letters extends StatefulWidget {
-  const Letters({Key? key}) : super(key: key);
+class TimeAndDays extends StatefulWidget {
+  const TimeAndDays({Key? key}) : super(key: key);
 
   @override
-  State<Letters> createState() => _LettersState();
+  State<TimeAndDays> createState() => _TimeAndDaysState();
 }
 
-class _LettersState extends State<Letters> {
-  final List<Map<String, dynamic>> lessonLetters = [
-    {'letter': 'Alphabet A-C', 'subtext': 'Learn new signs'},
-    {'letter': 'Alphabet D-F', 'subtext': 'Learn new signs'},
-    {'letter': 'Alphabet G-I', 'subtext': 'Learn new signs'},
-    {'letter': 'Alphabet J-L', 'subtext': 'Learn new signs'},
-    {'letter': 'Alphabet M-O', 'subtext': 'Learn new signs'},
-    {'letter': 'Alphabet P-R', 'subtext': 'Learn new signs'},
-    {'letter': 'Alphabet S-U', 'subtext': 'Learn new signs'},
-    {'letter': 'Alphabet V-X', 'subtext': 'Learn new signs'},
-    {'letter': 'Alphabet Y-Z', 'subtext': 'Learn new signs'},
-  ];
+class _TimeAndDaysState extends State<TimeAndDays> {
+ final List<Map<String, dynamic>> lessonTimeAndDays = [
+  {'time': 'Time', 'subtext': 'Learn about time'},
+  {'time': 'Second', 'subtext': 'Learn about seconds'},
+  {'time': 'Minute', 'subtext': 'Learn about minutes'},
+  {'time': 'Hour', 'subtext': 'Learn about hours'},
+  {'time': 'Day', 'subtext': 'Learn about days'},
+  {'time': 'Week', 'subtext': 'Learn about weeks'},
+  {'time': 'Month', 'subtext': 'Learn about months'},
+  {'time': 'Year', 'subtext': 'Learn about years'},
+  {'time': 'Morning', 'subtext': 'Learn about mornings'},
+  {'time': 'Afternoon', 'subtext': 'Learn about afternoons'},
+  {'time': 'Evening', 'subtext': 'Learn about evenings'},
+  {'time': 'Night', 'subtext': 'Learn about nights'},
+  {'time': 'Monday', 'subtext': 'Learn about Mondays'},
+  {'time': 'Tuesday', 'subtext': 'Learn about Tuesdays'},
+  {'time': 'Wednesday', 'subtext': 'Learn about Wednesdays'},
+  {'time': 'Thursday', 'subtext': 'Learn about Thursdays'},
+  {'time': 'Friday', 'subtext': 'Learn about Fridays'},
+  {'time': 'Saturday', 'subtext': 'Learn about Saturdays'},
+  {'time': 'Sunday', 'subtext': 'Learn about Sundays'},
+  {'time': 'January', 'subtext': 'Learn about January'},
+  {'time': 'February', 'subtext': 'Learn about February'},
+  {'time': 'March', 'subtext': 'Learn about March'},
+  {'time': 'April', 'subtext': 'Learn about April'},
+  {'time': 'May', 'subtext': 'Learn about May'},
+  {'time': 'June', 'subtext': 'Learn about June'},
+  {'time': 'July', 'subtext': 'Learn about July'},
+  {'time': 'August', 'subtext': 'Learn about August'},
+  {'time': 'September', 'subtext': 'Learn about September'},
+  {'time': 'October', 'subtext': 'Learn about October'},
+  {'time': 'November', 'subtext': 'Learn about November'},
+  {'time': 'December', 'subtext': 'Learn about December'},
+];
+
 
   @override
   Widget build(BuildContext context) {
@@ -34,14 +57,14 @@ class _LettersState extends State<Letters> {
               child: Container(
                 decoration: BoxDecoration(
                   color: const Color(0xFF5A96E3),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.2),
-                        spreadRadius: 5,
-                        blurRadius: 7,
-                        offset: const Offset(0, 3),
-                      ),
-                    ],
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.2),
+                      spreadRadius: 5,
+                      blurRadius: 7,
+                      offset: const Offset(0, 3),
+                    ),
+                  ],
                 ),
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(16, 30, 36, 0),
@@ -52,14 +75,13 @@ class _LettersState extends State<Letters> {
                         alignment: Alignment.topLeft,
                         child: CustomBackButton(
                           onPressed: () {
-                            Navigator.pushNamed(
-                      context, '/homePage');
+                            Navigator.pushNamed(context, '/homePage');
                           },
                         ),
                       ),
                       const Visibility(
                         child: Text(
-                          'Learn Alphabets',
+                          'Learn Time and Days',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 20,
@@ -68,7 +90,7 @@ class _LettersState extends State<Letters> {
                         ),
                       ),
                       Image.asset(
-                        'assets/lesson-icon/img1.png',
+                        'assets/lesson-icon/img9.png',
                         width: 50,
                         height: 50,
                       ),
@@ -81,7 +103,7 @@ class _LettersState extends State<Letters> {
           SliverList(
             delegate: SliverChildBuilderDelegate(
               (context, index) {
-                final lesson = lessonLetters[index];
+                final lesson = lessonTimeAndDays[index];
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 30),
                   child: Card(
@@ -98,7 +120,7 @@ class _LettersState extends State<Letters> {
                       ),
                       leading: const Icon(Icons.menu_book_outlined, size: 30),
                       title: Text(
-                        lesson['letter'],
+                        lesson['time'],
                         style: const TextStyle(
                           fontWeight: FontWeight.w600,
                         ),
@@ -112,7 +134,7 @@ class _LettersState extends State<Letters> {
                   ),
                 );
               },
-              childCount: lessonLetters.length,
+              childCount: lessonTimeAndDays.length,
             ),
           ),
         ],
@@ -139,8 +161,7 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
   double get maxExtent => maxHeight;
 
   @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
+  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
     return SizedBox.expand(child: child);
   }
 

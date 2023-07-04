@@ -1,25 +1,44 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application/front-page/lessons/widgets/back_button.dart';
 
-class Letters extends StatefulWidget {
-  const Letters({Key? key}) : super(key: key);
+class Food extends StatefulWidget {
+  const Food({Key? key}) : super(key: key);
 
   @override
-  State<Letters> createState() => _LettersState();
+  State<Food> createState() => _FoodState();
 }
 
-class _LettersState extends State<Letters> {
-  final List<Map<String, dynamic>> lessonLetters = [
-    {'letter': 'Alphabet A-C', 'subtext': 'Learn new signs'},
-    {'letter': 'Alphabet D-F', 'subtext': 'Learn new signs'},
-    {'letter': 'Alphabet G-I', 'subtext': 'Learn new signs'},
-    {'letter': 'Alphabet J-L', 'subtext': 'Learn new signs'},
-    {'letter': 'Alphabet M-O', 'subtext': 'Learn new signs'},
-    {'letter': 'Alphabet P-R', 'subtext': 'Learn new signs'},
-    {'letter': 'Alphabet S-U', 'subtext': 'Learn new signs'},
-    {'letter': 'Alphabet V-X', 'subtext': 'Learn new signs'},
-    {'letter': 'Alphabet Y-Z', 'subtext': 'Learn new signs'},
-  ];
+class _FoodState extends State<Food> {
+
+ final List<Map<String, dynamic>> lessonFood = [
+  {'food': 'Bread', 'subtext': 'Learn about bread'},
+  {'food': 'Cereal', 'subtext': 'Learn about cereal'},
+  {'food': 'French Fries', 'subtext': 'Learn about french fries'},
+  {'food': 'Hamburger', 'subtext': 'Learn about hamburgers'},
+  {'food': 'Ketchup', 'subtext': 'Learn about ketchup'},
+  {'food': 'Milkshake', 'subtext': 'Learn about milkshakes'},
+  {'food': 'Pancake', 'subtext': 'Learn about pancakes'},
+  {'food': 'Pepperoni', 'subtext': 'Learn about pepperoni'},
+  {'food': 'Pizza', 'subtext': 'Learn about pizza'},
+  {'food': 'Sandwich', 'subtext': 'Learn about sandwiches'},
+  {'food': 'Soup', 'subtext': 'Learn about soup'},
+  {'food': 'Spaghetti', 'subtext': 'Learn about spaghetti'},
+  {'food': 'Taco', 'subtext': 'Learn about tacos'},
+  {'food': 'Toast', 'subtext': 'Learn about toast'},
+  {'food': 'Tortilla', 'subtext': 'Learn about tortillas'},
+  {'food': 'Waffle', 'subtext': 'Learn about waffles'},
+  {'food': 'Water', 'subtext': 'Learn about water'},
+  {'food': 'Milk', 'subtext': 'Learn about milk'},
+  {'food': 'Hot Chocolate', 'subtext': 'Learn about hot chocolate'},
+  {'food': 'Coffee', 'subtext': 'Learn about coffee'},
+  {'food': 'Tea', 'subtext': 'Learn about tea'},
+  {'food': 'Juice', 'subtext': 'Learn about juice'},
+  {'food': 'Soft Drinks', 'subtext': 'Learn about soft drinks'},
+  {'food': 'Beer', 'subtext': 'Learn about beer'},
+  {'food': 'Wine', 'subtext': 'Learn about wine'},
+  {'food': 'Champagne', 'subtext': 'Learn about champagne'},
+];
+
 
   @override
   Widget build(BuildContext context) {
@@ -34,14 +53,14 @@ class _LettersState extends State<Letters> {
               child: Container(
                 decoration: BoxDecoration(
                   color: const Color(0xFF5A96E3),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.2),
-                        spreadRadius: 5,
-                        blurRadius: 7,
-                        offset: const Offset(0, 3),
-                      ),
-                    ],
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.2),
+                      spreadRadius: 5,
+                      blurRadius: 7,
+                      offset: const Offset(0, 3),
+                    ),
+                  ],
                 ),
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(16, 30, 36, 0),
@@ -52,14 +71,13 @@ class _LettersState extends State<Letters> {
                         alignment: Alignment.topLeft,
                         child: CustomBackButton(
                           onPressed: () {
-                            Navigator.pushNamed(
-                      context, '/homePage');
+                            Navigator.pushNamed(context, '/homePage');
                           },
                         ),
                       ),
                       const Visibility(
                         child: Text(
-                          'Learn Alphabets',
+                          'Learn Food and Drinks',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 20,
@@ -68,7 +86,7 @@ class _LettersState extends State<Letters> {
                         ),
                       ),
                       Image.asset(
-                        'assets/lesson-icon/img1.png',
+                        'assets/lesson-icon/img8.png',
                         width: 50,
                         height: 50,
                       ),
@@ -81,7 +99,7 @@ class _LettersState extends State<Letters> {
           SliverList(
             delegate: SliverChildBuilderDelegate(
               (context, index) {
-                final lesson = lessonLetters[index];
+                final lesson = lessonFood[index];
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 30),
                   child: Card(
@@ -98,7 +116,7 @@ class _LettersState extends State<Letters> {
                       ),
                       leading: const Icon(Icons.menu_book_outlined, size: 30),
                       title: Text(
-                        lesson['letter'],
+                        lesson['food'],
                         style: const TextStyle(
                           fontWeight: FontWeight.w600,
                         ),
@@ -112,7 +130,7 @@ class _LettersState extends State<Letters> {
                   ),
                 );
               },
-              childCount: lessonLetters.length,
+              childCount: lessonFood.length,
             ),
           ),
         ],
@@ -139,8 +157,7 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
   double get maxExtent => maxHeight;
 
   @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
+  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
     return SizedBox.expand(child: child);
   }
 

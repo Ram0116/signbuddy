@@ -3,7 +3,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application/front-page/lessons/back_button.dart';
+import 'package:flutter_application/front-page/lessons/widgets/back_button.dart';
 
 class ChooseLanguages extends StatefulWidget {
   const ChooseLanguages({Key? key}) : super(key: key);

@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application/actors.dart';
-import 'package:flutter_application/front-page/lessons/back_button.dart';
+import 'package:flutter_application/front-page/lessons/widgets/back_button.dart';
 
 void main() {
   runApp(const GetStartedPage());

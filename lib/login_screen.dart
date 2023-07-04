@@ -2,7 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_application/front-page/lessons/back_button.dart';
+import 'package:flutter_application/front-page/lessons/widgets/back_button.dart';
+import 'package:flutter_application/front-page/lessons/sharedwidget/loading.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -17,9 +18,12 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _password = TextEditingController();
   bool _obscurePassword = true;
 
+  bool loading = false;
+  String errorMessage = '';
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return loading ? Loading(text: 'Loading . . . ') : Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
           child: Form(
@@ -31,11 +35,9 @@ class _LoginPageState extends State<LoginPage> {
                 children: [
                   Container(
                     alignment: Alignment.topLeft,
-                    padding: const EdgeInsets.only(top: 50, left: 16),
                     child: CustomBackButton(
                       onPressed: () {
-                        Navigator.pushNamed(
-                            context, '/'); // Handle routing here
+                        Navigator.pushNamed(context, '/');
                       },
                     ),
                   ),
@@ -166,7 +168,7 @@ class _LoginPageState extends State<LoginPage> {
         Text("Don't have an account?"),
         TextButton(
           onPressed: () {
-            Navigator.pushNamed(context, '/signup');
+            Navigator.pushNamed(context, '/');
           },
           child: Text("Sign up"),
         ),
@@ -178,7 +180,10 @@ class _LoginPageState extends State<LoginPage> {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
 
+      setState(() => loading = true); // Show the loading screen
+
       try {
+        await Future.delayed(Duration(seconds: 1)); // Simulate a 1-second delay
         await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: _email.text.trim(),
           password: _password.text.trim(),
@@ -193,9 +198,47 @@ class _LoginPageState extends State<LoginPage> {
           _obscurePassword = true;
         });
       } catch (e) {
-        // Handle login errors here
-        print(e);
+        setState(() {
+          loading = false;
+          errorMessage = 'Incorrect Credentials';
+        });
+        _showErrorDialog(errorMessage);
       }
     }
+  }
+
+  void _showErrorDialog(String message) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Row(
+            children: [
+              Icon(Icons.error_outline, color: Colors.red),
+              SizedBox(width: 10),
+              Text('Error',
+              style: TextStyle(
+                fontFamily: 'FiraSans',
+                fontWeight: FontWeight.bold,
+              )),
+            ],
+          ),
+          content: Text(
+            message,
+            style: TextStyle(
+              fontFamily: 'FiraSans',
+              fontWeight: FontWeight.normal,
+            )),
+          actions: [
+            TextButton(
+              child: Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 }

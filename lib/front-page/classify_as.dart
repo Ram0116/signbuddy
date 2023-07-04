@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application/front-page/lessons/back_button.dart';
+import 'package:flutter_application/front-page/lessons/widgets/back_button.dart';
 
 class Classify extends StatefulWidget {
   const Classify({Key? key}) : super(key: key);
@@ -11,6 +11,8 @@ class Classify extends StatefulWidget {
 }
 
 class _ClassifyState extends State<Classify> {
+
+    
   final List<Map<String, dynamic>> classifyAs = [
     {'status': 'Deaf or Hard-of-Hearing'},
     {'status': 'Speech Impaired'},
@@ -107,11 +109,23 @@ class _ClassifyState extends State<Classify> {
                   width: 120, // Set the desired width for the button
                   height: 40, // Set the desired height for the button
                   child: ElevatedButton(
-                    onPressed: selectedClassify != null
-                        ? () => _navigateToLevel(context, selectedClassify!)
-                        : null,
-                    child: const Text('Continue'),
+                  onPressed: selectedClassify != null
+                      ? () => _navigateToLevel(context, selectedClassify!)
+                      : null,
+                  style: ButtonStyle(
+                    backgroundColor: selectedClassify != null
+                        ? MaterialStateProperty.all<Color>(
+                            const Color(0xFF5BD8FF))
+                        : MaterialStateProperty.all<Color>(const Color(
+                            0xFFD3D3D3)), // Set a different color when no choice is selected
                   ),
+                  child: Text(
+                    'Continue',
+                    style: TextStyle(
+                      color: Colors.grey[700], // Set the desired font color
+                    ),
+                  ),
+                ),
                 ),
               ),
             ),
@@ -135,6 +149,9 @@ class _ClassifyState extends State<Classify> {
         switch (classify) {
           case 'Non-Disabled':
             Navigator.pushNamed(context, '/langLevel');
+            break;
+          case 'Deaf or Hard-of-Hearing':
+            Navigator.pushNamed(context, '/homePage');
             break;
           // Add more cases for other classifications...
 

@@ -7,18 +7,18 @@ void main() {
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
-  static GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-
   @override
+  // ignore: library_private_types_in_public_api
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   int _currentIndex = 0;
 
   final List<Widget> _screens = [
     const LessonsScreen(),
-    AlphabetScreen(),
+    const AlphabetScreen(),
     const DictionaryScreen(),
     const StudyScreen(),
     const SettingsScreen(),
@@ -27,10 +27,9 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: HomePage.scaffoldKey,
-
+      key: _scaffoldKey,
       appBar: AppBar(
-        backgroundColor: Colors.deepPurpleAccent[700],
+        backgroundColor: const Color(0xFF5A96E3),
         title: const Text('SignBuddy'),
         actions: [
           IconButton(
@@ -47,7 +46,7 @@ class _HomePageState extends State<HomePage> {
           children: [
             DrawerHeader(
               decoration: const BoxDecoration(
-                color: Color(0xFF5B187B),
+                color: Color(0xFF5A96E3),
               ),
               child: Row(
                 children: [
@@ -90,7 +89,7 @@ class _HomePageState extends State<HomePage> {
                     color: Colors.white,
                     onPressed: () {
                       setState(() {
-                        HomePage.scaffoldKey.currentState?.openEndDrawer();
+                        _scaffoldKey.currentState?.openEndDrawer();
                       });
                     },
                   ),
@@ -199,7 +198,7 @@ class _LessonsScreenState extends State<LessonsScreen> {
   final List<Map<String, dynamic>> lessons = [
     {'lessonName': 'Alphabet', 'icon': 'lesson-icon/img1.png'},
     {'lessonName': 'Numbers', 'icon': 'lesson-icon/img2.png'},
-    {'lessonName': 'Family and Friends', 'icon': 'lesson-icon/img3.png'},
+    {'lessonName': 'Family', 'icon': 'lesson-icon/img3.png'},
     {'lessonName': 'Colors', 'icon': 'lesson-icon/img4.png'},
     {'lessonName': 'Shapes', 'icon': 'lesson-icon/img5.png'},
     {'lessonName': 'Animals', 'icon': 'lesson-icon/img6.png'},
@@ -247,7 +246,6 @@ class _LessonsScreenState extends State<LessonsScreen> {
                 itemCount: lessons.length,
                 itemBuilder: (context, index) {
                   final lesson = lessons[index];
-                  final isSelected = index == selectedLessonIndex;
                   return Card(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(4),
@@ -295,8 +293,32 @@ void _navigateToStartLesson(BuildContext context, String lesson) {
     case 'Alphabet':
       Navigator.pushNamed(context, '/basic');
       break;
-    case 'Mastering Finger Spelling':
-      Navigator.pushNamed(context, '/finger_spelling');
+    case 'Numbers':
+      Navigator.pushNamed(context, '/numbers');
+      break;
+    case 'Family':
+      Navigator.pushNamed(context, '/family');
+      break;
+    case 'Colors':
+      Navigator.pushNamed(context, '/colors');
+      break;
+    case 'Shapes':
+      Navigator.pushNamed(context, '/shapes');
+      break;
+    case 'Animals':
+      Navigator.pushNamed(context, '/animals');
+      break;
+    case 'Nature':
+      Navigator.pushNamed(context, '/nature');
+      break;
+    case 'Foods and Drinks':
+      Navigator.pushNamed(context, '/food');
+      break;
+    case 'Time and Days':
+      Navigator.pushNamed(context, '/timeAndDays');
+      break;
+    case 'Greetings':
+      Navigator.pushNamed(context, '/greeting');
       break;
     // Add more cases for other lessons...
 
@@ -307,6 +329,8 @@ void _navigateToStartLesson(BuildContext context, String lesson) {
 }
 
 class AlphabetScreen extends StatefulWidget {
+  const AlphabetScreen({super.key});
+
   @override
   _AlphabetScreenState createState() => _AlphabetScreenState();
 }
@@ -346,32 +370,7 @@ class _AlphabetScreenState extends State<AlphabetScreen> {
   @override
   Widget build(BuildContext context) {
     final letters = [
-      'A',
-      'B',
-      'C',
-      'D',
-      'E',
-      'F',
-      'G',
-      'H',
-      'I',
-      'J',
-      'K',
-      'L',
-      'M',
-      'N',
-      'O',
-      'P',
-      'Q',
-      'R',
-      'S',
-      'T',
-      'U',
-      'V',
-      'W',
-      'X',
-      'Y',
-      'Z'
+      'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'
     ];
 
     return Scaffold(
@@ -459,6 +458,7 @@ class _AlphabetScreenState extends State<AlphabetScreen> {
     );
   }
 }
+
 
 class DictionaryScreen extends StatelessWidget {
   const DictionaryScreen({Key? key}) : super(key: key);
