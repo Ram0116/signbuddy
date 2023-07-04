@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application/front-page/lessons/back_button.dart';
+import 'package:flutter_application/front-page/lessons/widgets/back_button.dart';
+import 'package:flutter_application/front-page/lessons/sharedwidget/loading.dart';
 
 class Level extends StatefulWidget {
   const Level({Key? key}) : super(key: key);
@@ -11,7 +12,8 @@ class Level extends StatefulWidget {
 }
 
 class _LevelState extends State<Level> {
-  int? selectedLevelIndex;
+  String? selectedLevelIndex;
+  bool loading = false;
 
   final List<Map<String, dynamic>> levels = [
     {
@@ -30,12 +32,12 @@ class _LevelState extends State<Level> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return loading ? const Loading(text: 'Setting up your preferences . . . ',) : Scaffold(
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage(
-                'assets/bg-signbuddy.png'), // Replace with your background image path
+              'assets/bg-signbuddy.png'), // Replace with your background image path
             fit: BoxFit.cover,
           ),
         ),
@@ -69,7 +71,7 @@ class _LevelState extends State<Level> {
                 itemCount: levels.length,
                 itemBuilder: (context, index) {
                   final level = levels[index];
-                  final isSelected = selectedLevelIndex == index;
+                  final isSelected = selectedLevelIndex == level['level'];
                   return Padding(
                     padding: const EdgeInsets.symmetric(
                         vertical: 2.0, horizontal: 30.0),
@@ -87,7 +89,7 @@ class _LevelState extends State<Level> {
                         child: ListTile(
                           onTap: () {
                             setState(() {
-                              selectedLevelIndex = index;
+                              selectedLevelIndex = level['level'];
                             });
                           },
                           contentPadding: const EdgeInsets.symmetric(
@@ -134,22 +136,49 @@ class _LevelState extends State<Level> {
   }
 
   Future<void> _navigateToHomePage(BuildContext context) async {
-    try {
-      User? currentUser = FirebaseAuth.instance.currentUser;
-      if (currentUser != null) {
-        String selectedLevel = levels[selectedLevelIndex!]['level'];
 
-        // Store the selected level data in Firestore under the user's UID
-        await FirebaseFirestore.instance
-            .collection('userData')
-            .doc(currentUser.uid)
-            .set({'selectedLevel': selectedLevel}, SetOptions(merge: true));
+   //show the loading screen
+  setState(() => loading = true); 
 
-        // Navigate to the home page
-        Navigator.pushNamed(context, '/homePage');
+  try {
+
+    // loading screen time
+    await Future.delayed(const Duration(seconds: 5));
+
+    User? currentUser = FirebaseAuth.instance.currentUser;
+    if (currentUser != null) {
+      String selectedLevel;
+      switch (selectedLevelIndex) {
+        case 'I’m new to English Sign Language':
+          selectedLevel = 'I’m new to English Sign Language';
+          Navigator.pushNamed(context, '/homePage');
+          break;
+        case 'I know some sign language words and phrases':
+          selectedLevel = 'I know some sign language words and phrases';
+          Navigator.pushNamed(context, '/s');
+          break;
+        case 'I can have simple conversation using English Sign Language':
+          selectedLevel =
+              'I can have simple conversation using English Sign Language';
+          Navigator.pushNamed(context, '/s');
+          break;
+        default:
+          selectedLevel = '';
+          break;
       }
-    } catch (e) {
-      print(e.toString());
+
+      // Store the selected level data in Firestore under the user's UID
+      await FirebaseFirestore.instance
+          .collection('userData')
+          .doc(currentUser.uid)
+          .set({'selectedLevel': selectedLevel});
+
     }
+  } catch (e) {
+     setState(() {
+        loading = false;
+      });
+    print(e.toString());
   }
+}
 }

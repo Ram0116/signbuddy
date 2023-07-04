@@ -1,24 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application/front-page/lessons/widgets/back_button.dart';
 
-class Letters extends StatefulWidget {
-  const Letters({Key? key}) : super(key: key);
+class Shapes extends StatefulWidget {
+  const Shapes({Key? key}) : super(key: key);
 
   @override
-  State<Letters> createState() => _LettersState();
+  State<Shapes> createState() => _ShapesState();
 }
 
-class _LettersState extends State<Letters> {
-  final List<Map<String, dynamic>> lessonLetters = [
-    {'letter': 'Alphabet A-C', 'subtext': 'Learn new signs'},
-    {'letter': 'Alphabet D-F', 'subtext': 'Learn new signs'},
-    {'letter': 'Alphabet G-I', 'subtext': 'Learn new signs'},
-    {'letter': 'Alphabet J-L', 'subtext': 'Learn new signs'},
-    {'letter': 'Alphabet M-O', 'subtext': 'Learn new signs'},
-    {'letter': 'Alphabet P-R', 'subtext': 'Learn new signs'},
-    {'letter': 'Alphabet S-U', 'subtext': 'Learn new signs'},
-    {'letter': 'Alphabet V-X', 'subtext': 'Learn new signs'},
-    {'letter': 'Alphabet Y-Z', 'subtext': 'Learn new signs'},
+class _ShapesState extends State<Shapes> {
+  final List<Map<String, dynamic>> lessonShapes = [
+    {'shape': 'Circle', 'subtext': 'Learn about circles'},
+    {'shape': 'Triangle', 'subtext': 'Learn about triangles'},
+    {'shape': 'Square', 'subtext': 'Learn about squares'},
+    {'shape': 'Rectangle', 'subtext': 'Learn about rectangles'},
+    {'shape': 'Pentagon', 'subtext': 'Learn about pentagons'},
+    {'shape': 'Hexagon', 'subtext': 'Learn about hexagons'},
+    {'shape': 'Octagon', 'subtext': 'Learn about octagons'},
+    {'shape': 'Diamond', 'subtext': 'Learn about diamond'},
+    {'shape': 'Star', 'subtext': 'Learn about star'},
+    {'shape': 'Heart', 'subtext': 'Learn about heart'},
   ];
 
   @override
@@ -34,14 +35,14 @@ class _LettersState extends State<Letters> {
               child: Container(
                 decoration: BoxDecoration(
                   color: const Color(0xFF5A96E3),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.2),
-                        spreadRadius: 5,
-                        blurRadius: 7,
-                        offset: const Offset(0, 3),
-                      ),
-                    ],
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.2),
+                      spreadRadius: 5,
+                      blurRadius: 7,
+                      offset: const Offset(0, 3),
+                    ),
+                  ],
                 ),
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(16, 30, 36, 0),
@@ -52,14 +53,13 @@ class _LettersState extends State<Letters> {
                         alignment: Alignment.topLeft,
                         child: CustomBackButton(
                           onPressed: () {
-                            Navigator.pushNamed(
-                      context, '/homePage');
+                            Navigator.pushNamed(context, '/homePage');
                           },
                         ),
                       ),
                       const Visibility(
                         child: Text(
-                          'Learn Alphabets',
+                          'Learn Shapes',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 20,
@@ -68,7 +68,7 @@ class _LettersState extends State<Letters> {
                         ),
                       ),
                       Image.asset(
-                        'assets/lesson-icon/img1.png',
+                        'assets/lesson-icon/img5.png',
                         width: 50,
                         height: 50,
                       ),
@@ -81,7 +81,7 @@ class _LettersState extends State<Letters> {
           SliverList(
             delegate: SliverChildBuilderDelegate(
               (context, index) {
-                final lesson = lessonLetters[index];
+                final lesson = lessonShapes[index];
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 30),
                   child: Card(
@@ -98,7 +98,7 @@ class _LettersState extends State<Letters> {
                       ),
                       leading: const Icon(Icons.menu_book_outlined, size: 30),
                       title: Text(
-                        lesson['letter'],
+                        lesson['shape'],
                         style: const TextStyle(
                           fontWeight: FontWeight.w600,
                         ),
@@ -112,7 +112,7 @@ class _LettersState extends State<Letters> {
                   ),
                 );
               },
-              childCount: lessonLetters.length,
+              childCount: lessonShapes.length,
             ),
           ),
         ],
@@ -139,8 +139,7 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
   double get maxExtent => maxHeight;
 
   @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
+  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
     return SizedBox.expand(child: child);
   }
 

@@ -1,24 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application/front-page/lessons/widgets/back_button.dart';
 
-class Letters extends StatefulWidget {
-  const Letters({Key? key}) : super(key: key);
+class Greetings extends StatefulWidget {
+  const Greetings({Key? key}) : super(key: key);
 
   @override
-  State<Letters> createState() => _LettersState();
+  State<Greetings> createState() => _GreetingsState();
 }
 
-class _LettersState extends State<Letters> {
-  final List<Map<String, dynamic>> lessonLetters = [
-    {'letter': 'Alphabet A-C', 'subtext': 'Learn new signs'},
-    {'letter': 'Alphabet D-F', 'subtext': 'Learn new signs'},
-    {'letter': 'Alphabet G-I', 'subtext': 'Learn new signs'},
-    {'letter': 'Alphabet J-L', 'subtext': 'Learn new signs'},
-    {'letter': 'Alphabet M-O', 'subtext': 'Learn new signs'},
-    {'letter': 'Alphabet P-R', 'subtext': 'Learn new signs'},
-    {'letter': 'Alphabet S-U', 'subtext': 'Learn new signs'},
-    {'letter': 'Alphabet V-X', 'subtext': 'Learn new signs'},
-    {'letter': 'Alphabet Y-Z', 'subtext': 'Learn new signs'},
+class _GreetingsState extends State<Greetings> {
+  final List<Map<String, dynamic>> lessonGreetings = [
+    {'greeting': 'Hello', 'subtext': 'Learn about greeting: Hello'},
+    {'greeting': 'Good Morning', 'subtext': 'Learn about greeting: Good Morning'},
+    {'greeting': 'Good Afternoon', 'subtext': 'Learn about greeting: Good Afternoon'},
+    {'greeting': 'Good Evening', 'subtext': 'Learn about greeting: Good Evening'},
+    {'greeting': 'Good Night', 'subtext': 'Learn about greeting: Good Night'},
+    {'greeting': 'How are you?', 'subtext': 'Learn about greeting: How are you?'},
+    {'greeting': 'Nice to meet you', 'subtext': 'Learn about greeting: Nice to meet you'},
+    {'greeting': 'Thank you', 'subtext': 'Learn about greeting: Thank you'},
+    {'greeting': 'You\'re welcome', 'subtext': 'Learn about greeting: You\'re welcome'},
+    {'greeting': 'Goodbye', 'subtext': 'Learn about greeting: Goodbye'},
+    {'greeting': 'See you later', 'subtext': 'Learn about greeting: See you later'},
+    {'greeting': 'Have a nice day', 'subtext': 'Learn about greeting: Have a nice day'},
+    {'greeting': 'How are you doing?', 'subtext': 'Learn about greeting: How are you doing?'},
+    {'greeting': 'What\'s up?', 'subtext': 'Learn about greeting: What\'s up?'},
+    {'greeting': 'How\'s it going?', 'subtext': 'Learn about greeting: How\'s it going?'},
+    {'greeting': 'Good to see you', 'subtext': 'Learn about greeting: Good to see you'},
+    {'greeting': 'Take care', 'subtext': 'Learn about greeting: Take care'},
+    {'greeting': 'I\'m sorry', 'subtext': 'Learn about greeting: I\'m sorry'},
+    {'greeting': 'Excuse me', 'subtext': 'Learn about greeting: Excuse me'},
+    {'greeting': 'Congratulations', 'subtext': 'Learn about greeting: Congratulations'},
   ];
 
   @override
@@ -34,14 +45,14 @@ class _LettersState extends State<Letters> {
               child: Container(
                 decoration: BoxDecoration(
                   color: const Color(0xFF5A96E3),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.2),
-                        spreadRadius: 5,
-                        blurRadius: 7,
-                        offset: const Offset(0, 3),
-                      ),
-                    ],
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.2),
+                      spreadRadius: 5,
+                      blurRadius: 7,
+                      offset: const Offset(0, 3),
+                    ),
+                  ],
                 ),
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(16, 30, 36, 0),
@@ -52,14 +63,13 @@ class _LettersState extends State<Letters> {
                         alignment: Alignment.topLeft,
                         child: CustomBackButton(
                           onPressed: () {
-                            Navigator.pushNamed(
-                      context, '/homePage');
+                            Navigator.pushNamed(context, '/homePage');
                           },
                         ),
                       ),
                       const Visibility(
                         child: Text(
-                          'Learn Alphabets',
+                          'Learn Greetings',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 20,
@@ -68,7 +78,7 @@ class _LettersState extends State<Letters> {
                         ),
                       ),
                       Image.asset(
-                        'assets/lesson-icon/img1.png',
+                        'assets/lesson-icon/img10.png',
                         width: 50,
                         height: 50,
                       ),
@@ -81,7 +91,7 @@ class _LettersState extends State<Letters> {
           SliverList(
             delegate: SliverChildBuilderDelegate(
               (context, index) {
-                final lesson = lessonLetters[index];
+                final lesson = lessonGreetings[index];
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 30),
                   child: Card(
@@ -98,7 +108,7 @@ class _LettersState extends State<Letters> {
                       ),
                       leading: const Icon(Icons.menu_book_outlined, size: 30),
                       title: Text(
-                        lesson['letter'],
+                        lesson['greeting'],
                         style: const TextStyle(
                           fontWeight: FontWeight.w600,
                         ),
@@ -112,7 +122,7 @@ class _LettersState extends State<Letters> {
                   ),
                 );
               },
-              childCount: lessonLetters.length,
+              childCount: lessonGreetings.length,
             ),
           ),
         ],
@@ -139,8 +149,7 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
   double get maxExtent => maxHeight;
 
   @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
+  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
     return SizedBox.expand(child: child);
   }
 

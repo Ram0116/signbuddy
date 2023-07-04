@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_application/front-page/lessons/back_button.dart';
+import 'package:flutter_application/front-page/lessons/widgets/back_button.dart';
+import 'package:flutter_application/front-page/lessons/sharedwidget/loading.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({Key? key}) : super(key: key);
@@ -15,6 +16,9 @@ class _SignupPageState extends State<SignupPage> {
 
   bool _obscurePassword = true;
   bool _obscureConfirmPassword = true;
+  
+  bool loading = false;
+
 
   final TextEditingController _firstName = TextEditingController();
   final TextEditingController _lastName = TextEditingController();
@@ -24,7 +28,7 @@ class _SignupPageState extends State<SignupPage> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
+    return loading ? const Loading(text: 'Loading . . . ',) : SafeArea(
       child: Scaffold(
         body: Form(
           key: _formKey,
@@ -33,7 +37,7 @@ class _SignupPageState extends State<SignupPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                SizedBox(height: 50),
+                const SizedBox(height: 50),
                 Container(
                   alignment: Alignment.topLeft,
                   child: CustomBackButton(
@@ -43,11 +47,11 @@ class _SignupPageState extends State<SignupPage> {
                     },
                   ),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 _header(),
-                SizedBox(height: 40),
+                const SizedBox(height: 40),
                 _inputField(),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 _signup(context),
               ],
             ),
@@ -58,7 +62,7 @@ class _SignupPageState extends State<SignupPage> {
   }
 
   _header() {
-    return Column(
+    return const Column(
       children: [
         Text(
           "Sign up",
@@ -88,7 +92,7 @@ class _SignupPageState extends State<SignupPage> {
                     ),
                     fillColor: Theme.of(context).primaryColor.withOpacity(0.1),
                     filled: true,
-                    prefixIcon: Icon(Icons.person),
+                    prefixIcon: const Icon(Icons.person),
                   ),
                   validator: (value) {
                     if (value!.isEmpty) {
@@ -99,7 +103,7 @@ class _SignupPageState extends State<SignupPage> {
                 ),
               ),
             ),
-            SizedBox(width: 10),
+            const SizedBox(width: 10),
             Expanded(
               child: TextFormField(
                 controller: _lastName,
@@ -111,7 +115,7 @@ class _SignupPageState extends State<SignupPage> {
                   ),
                   fillColor: Theme.of(context).primaryColor.withOpacity(0.1),
                   filled: true,
-                  prefixIcon: Icon(Icons.person),
+                  prefixIcon: const Icon(Icons.person),
                 ),
                 validator: (value) {
                   if (value!.isEmpty) {
@@ -123,7 +127,7 @@ class _SignupPageState extends State<SignupPage> {
             ),
           ],
         ),
-        SizedBox(height: 10),
+        const SizedBox(height: 10),
         TextFormField(
           controller: _email,
           decoration: InputDecoration(
@@ -134,7 +138,7 @@ class _SignupPageState extends State<SignupPage> {
             ),
             fillColor: Theme.of(context).primaryColor.withOpacity(0.1),
             filled: true,
-            prefixIcon: Icon(Icons.mail),
+            prefixIcon: const Icon(Icons.mail),
           ),
           validator: (value) {
             if (value!.isEmpty) {
@@ -147,7 +151,7 @@ class _SignupPageState extends State<SignupPage> {
             return null;
           },
         ),
-        SizedBox(height: 10),
+        const SizedBox(height: 10),
         TextFormField(
           controller: _password,
           decoration: InputDecoration(
@@ -158,7 +162,7 @@ class _SignupPageState extends State<SignupPage> {
             ),
             fillColor: Theme.of(context).primaryColor.withOpacity(0.1),
             filled: true,
-            prefixIcon: Icon(Icons.lock),
+            prefixIcon: const Icon(Icons.lock),
             suffixIcon: GestureDetector(
               onTap: () {
                 setState(() {
@@ -181,7 +185,7 @@ class _SignupPageState extends State<SignupPage> {
           },
           obscureText: _obscurePassword,
         ),
-        SizedBox(height: 10),
+        const SizedBox(height: 10),
         TextFormField(
           controller: _confirmPassword,
           keyboardType: TextInputType.text,
@@ -193,7 +197,7 @@ class _SignupPageState extends State<SignupPage> {
             ),
             fillColor: Theme.of(context).primaryColor.withOpacity(0.1),
             filled: true,
-            prefixIcon: Icon(Icons.lock),
+            prefixIcon: const Icon(Icons.lock),
             suffixIcon: GestureDetector(
               onTap: () {
                 setState(() {
@@ -219,23 +223,23 @@ class _SignupPageState extends State<SignupPage> {
           },
           obscureText: _obscureConfirmPassword,
         ),
-        SizedBox(height: 30),
+        const SizedBox(height: 30),
         ElevatedButton(
           onPressed: _submitForm,
-          child: Text(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: const Color(0xFF5BD8FF),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            padding: const EdgeInsets.symmetric(vertical: 20),
+          ),
+          child: const Text(
             "Sign up",
             style: TextStyle(
               fontSize: 20,
               color: Color(0xFF5A5A5A),
               fontWeight: FontWeight.bold,
             ),
-          ),
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Color(0xFF5BD8FF),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            padding: EdgeInsets.symmetric(vertical: 20),
           ),
         ),
       ],
@@ -246,12 +250,12 @@ class _SignupPageState extends State<SignupPage> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text("Already have an account?"),
+        const Text("Already have an account?"),
         TextButton(
           onPressed: () {
             Navigator.pushNamed(context, '/login');
           },
-          child: Text(
+          child: const Text(
             "Log in",
             style: TextStyle(
               color: Color(0xFF5BD8FF),
@@ -265,7 +269,15 @@ class _SignupPageState extends State<SignupPage> {
 
   void _submitForm() async {
     if (_formKey.currentState!.validate()) {
+
+       //show the loading screen
+      setState(() => loading = true); 
+
       try {
+
+        // loading screen time
+        await Future.delayed(const Duration(seconds: 2));
+
         User? currentUser = FirebaseAuth.instance.currentUser;
 
         if (currentUser != null && currentUser.isAnonymous) {
@@ -331,6 +343,10 @@ class _SignupPageState extends State<SignupPage> {
           Navigator.pushNamed(context, '/chooseLanguage');
         }
       } catch (e) {
+
+         setState(() {
+          loading = false;
+        });
         print(e.toString());
       }
     }

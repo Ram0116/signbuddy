@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:flutter_application/front-page/lessons/widgets/back_button.dart';
 
 
 class ForgotPass extends StatefulWidget {
@@ -28,10 +29,9 @@ class _ForgotPassState extends State<ForgotPass> {
               children: [
                 Container(
                   alignment: Alignment.topLeft,
-                  child: IconButton(
-                    icon: Icon(Icons.arrow_back),
+                  child:  CustomBackButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, '/login');
+                      Navigator.pushNamed(context, '/');
                     },
                   ),
                 ),

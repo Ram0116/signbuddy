@@ -1,25 +1,44 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application/front-page/lessons/widgets/back_button.dart';
 
-class Letters extends StatefulWidget {
-  const Letters({Key? key}) : super(key: key);
+class Animals extends StatefulWidget {
+  const Animals({Key? key}) : super(key: key);
 
   @override
-  State<Letters> createState() => _LettersState();
+  State<Animals> createState() => _AnimalsState();
 }
 
-class _LettersState extends State<Letters> {
-  final List<Map<String, dynamic>> lessonLetters = [
-    {'letter': 'Alphabet A-C', 'subtext': 'Learn new signs'},
-    {'letter': 'Alphabet D-F', 'subtext': 'Learn new signs'},
-    {'letter': 'Alphabet G-I', 'subtext': 'Learn new signs'},
-    {'letter': 'Alphabet J-L', 'subtext': 'Learn new signs'},
-    {'letter': 'Alphabet M-O', 'subtext': 'Learn new signs'},
-    {'letter': 'Alphabet P-R', 'subtext': 'Learn new signs'},
-    {'letter': 'Alphabet S-U', 'subtext': 'Learn new signs'},
-    {'letter': 'Alphabet V-X', 'subtext': 'Learn new signs'},
-    {'letter': 'Alphabet Y-Z', 'subtext': 'Learn new signs'},
-  ];
+class _AnimalsState extends State<Animals> {
+
+    final List<Map<String, dynamic>> lessonAnimals = [
+  {'animal': 'Bat', 'subtext': 'Learn about bats'},
+  {'animal': 'Bear', 'subtext': 'Learn about bears'},
+  {'animal': 'Bird', 'subtext': 'Learn about birds'},
+  {'animal': 'Bull', 'subtext': 'Learn about bulls'},
+  {'animal': 'Camel', 'subtext': 'Learn about camels'},
+  {'animal': 'Cat', 'subtext': 'Learn about cats'},
+  {'animal': 'Chicken', 'subtext': 'Learn about chickens'},
+  {'animal': 'Crab/Lobster', 'subtext': 'Learn about crabs/lobsters'},
+  {'animal': 'Crocodile/Alligator', 'subtext': 'Learn about crocodiles/alligators'},
+  {'animal': 'Deer', 'subtext': 'Learn about deer'},
+  {'animal': 'Dog', 'subtext': 'Learn about dogs'},
+  {'animal': 'Dolphin', 'subtext': 'Learn about dolphins'},
+  {'animal': 'Donkey', 'subtext': 'Learn about donkeys'},
+  {'animal': 'Duck', 'subtext': 'Learn about ducks'},
+  {'animal': 'Elephant', 'subtext': 'Learn about elephants'},
+  {'animal': 'Fish', 'subtext': 'Learn about fish'},
+  {'animal': 'Flamingo', 'subtext': 'Learn about flamingos'},
+  {'animal': 'Fox', 'subtext': 'Learn about foxes'},
+  {'animal': 'Frog', 'subtext': 'Learn about frogs'},
+  {'animal': 'Giraffe', 'subtext': 'Learn about giraffes'},
+  {'animal': 'Goose', 'subtext': 'Learn about geese'},
+  {'animal': 'Goat', 'subtext': 'Learn about goats'},
+  {'animal': 'Gorilla', 'subtext': 'Learn about gorillas'},
+  {'animal': 'Hippo', 'subtext': 'Learn about hippos'},
+  {'animal': 'Horse', 'subtext': 'Learn about horses'},
+];
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -34,14 +53,14 @@ class _LettersState extends State<Letters> {
               child: Container(
                 decoration: BoxDecoration(
                   color: const Color(0xFF5A96E3),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.2),
-                        spreadRadius: 5,
-                        blurRadius: 7,
-                        offset: const Offset(0, 3),
-                      ),
-                    ],
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.2),
+                      spreadRadius: 5,
+                      blurRadius: 7,
+                      offset: const Offset(0, 3),
+                    ),
+                  ],
                 ),
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(16, 30, 36, 0),
@@ -52,14 +71,13 @@ class _LettersState extends State<Letters> {
                         alignment: Alignment.topLeft,
                         child: CustomBackButton(
                           onPressed: () {
-                            Navigator.pushNamed(
-                      context, '/homePage');
+                            Navigator.pushNamed(context, '/homePage');
                           },
                         ),
                       ),
                       const Visibility(
                         child: Text(
-                          'Learn Alphabets',
+                          'Learn Animals',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 20,
@@ -68,7 +86,7 @@ class _LettersState extends State<Letters> {
                         ),
                       ),
                       Image.asset(
-                        'assets/lesson-icon/img1.png',
+                        'assets/lesson-icon/img6.png',
                         width: 50,
                         height: 50,
                       ),
@@ -81,7 +99,7 @@ class _LettersState extends State<Letters> {
           SliverList(
             delegate: SliverChildBuilderDelegate(
               (context, index) {
-                final lesson = lessonLetters[index];
+                final lesson = lessonAnimals[index];
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 30),
                   child: Card(
@@ -98,7 +116,7 @@ class _LettersState extends State<Letters> {
                       ),
                       leading: const Icon(Icons.menu_book_outlined, size: 30),
                       title: Text(
-                        lesson['letter'],
+                        lesson['animal'],
                         style: const TextStyle(
                           fontWeight: FontWeight.w600,
                         ),
@@ -112,7 +130,7 @@ class _LettersState extends State<Letters> {
                   ),
                 );
               },
-              childCount: lessonLetters.length,
+              childCount: lessonAnimals.length,
             ),
           ),
         ],
@@ -139,8 +157,7 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
   double get maxExtent => maxHeight;
 
   @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
+  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
     return SizedBox.expand(child: child);
   }
 

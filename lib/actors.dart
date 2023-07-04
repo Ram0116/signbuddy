@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_application/front-page/lessons/back_button.dart';
+import 'package:flutter_application/front-page/lessons/widgets/back_button.dart';
 
 class Actors extends StatefulWidget {
   const Actors({Key? key}) : super(key: key);
@@ -102,7 +102,7 @@ class _ActorsState extends State<Actors> {
                     backgroundColor: selectedUser != null
                         ? MaterialStateProperty.all<Color>(
                             const Color(0xFF5BD8FF))
-                        : MaterialStateProperty.all<Color>(Color(
+                        : MaterialStateProperty.all<Color>(const Color(
                             0xFFD3D3D3)), // Set a different color when no choice is selected
                   ),
                   child: Text(

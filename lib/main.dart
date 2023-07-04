@@ -8,14 +8,22 @@ import 'package:flutter_application/front-page/classify_as.dart';
 import 'package:flutter_application/front-page/english_level.dart';
 import 'package:flutter_application/front-page/get_started.dart';
 import 'package:flutter_application/front-page/home_page.dart';
+import 'package:flutter_application/front-page/lessons/color.dart';
+import 'package:flutter_application/front-page/lessons/family.dart';
+import 'package:flutter_application/front-page/lessons/numbers.dart';
+import 'package:flutter_application/front-page/lessons/shape.dart';
+import 'package:flutter_application/front-page/lessons/animals.dart';
+import 'package:flutter_application/front-page/lessons/nature.dart';
+import 'package:flutter_application/front-page/lessons/food.dart';
+import 'package:flutter_application/front-page/lessons/time-and-days.dart';
+import 'package:flutter_application/front-page/lessons/greeting.dart';
+
 import 'package:flutter_application/login_screen.dart';
 import 'package:flutter_application/sign_up.dart';
 import 'package:flutter_application/front-page/lessons/alphabet.dart';
 
 import 'front-page/front-page.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -64,7 +72,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
         routes: {
-          '/f': (context) => FrontPage(),
+          '/': (context) => FrontPage(),
           '/actors': (context) => Actors(),
           '/get_started': (context) => GetStartedPage(),
           '/signup': (context) => SignupPage(),
@@ -75,7 +83,16 @@ class MyApp extends StatelessWidget {
           '/login': (context) => LoginPage(),
           '/forgotPass': (context) => ForgotPass(),
           '/basic': (context) => Letters(),
+          '/numbers': (context) => Numbers(),
+          '/family': (context) => Family(),
+          '/colors': (context) => ColorLesson(),
+          '/shapes': (context) => Shapes(),
+          '/animals': (context) => Animals(),
+          '/nature': (context) => Nature(),
+          '/food': (context) => Food(),
+          '/timeAndDays': (context) => TimeAndDays(),
+          '/greeting': (context) => Greetings(),
         },
-        home: HomePage());
+      );
   }
 }

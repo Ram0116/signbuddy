@@ -1,25 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application/front-page/lessons/widgets/back_button.dart';
 
-class Letters extends StatefulWidget {
-  const Letters({Key? key}) : super(key: key);
+class Nature extends StatefulWidget {
+  const Nature({Key? key}) : super(key: key);
 
   @override
-  State<Letters> createState() => _LettersState();
+  State<Nature> createState() => _NatureState();
 }
 
-class _LettersState extends State<Letters> {
-  final List<Map<String, dynamic>> lessonLetters = [
-    {'letter': 'Alphabet A-C', 'subtext': 'Learn new signs'},
-    {'letter': 'Alphabet D-F', 'subtext': 'Learn new signs'},
-    {'letter': 'Alphabet G-I', 'subtext': 'Learn new signs'},
-    {'letter': 'Alphabet J-L', 'subtext': 'Learn new signs'},
-    {'letter': 'Alphabet M-O', 'subtext': 'Learn new signs'},
-    {'letter': 'Alphabet P-R', 'subtext': 'Learn new signs'},
-    {'letter': 'Alphabet S-U', 'subtext': 'Learn new signs'},
-    {'letter': 'Alphabet V-X', 'subtext': 'Learn new signs'},
-    {'letter': 'Alphabet Y-Z', 'subtext': 'Learn new signs'},
-  ];
+class _NatureState extends State<Nature> {
+  final List<Map<String, dynamic>> lessonNature = [
+  {'nature': 'Lake', 'subtext': 'Learn about lakes'},
+  {'nature': 'Ocean', 'subtext': 'Learn about oceans'},
+  {'nature': 'Desert', 'subtext': 'Learn about deserts'},
+  {'nature': 'Canyon', 'subtext': 'Learn about canyons'},
+  {'nature': 'Plains', 'subtext': 'Learn about plains'},
+  {'nature': 'Forest', 'subtext': 'Learn about forests'},
+  {'nature': 'Jungle', 'subtext': 'Learn about jungles'},
+  {'nature': 'Tree', 'subtext': 'Learn about trees'},
+  {'nature': 'Earth', 'subtext': 'Learn about the Earth'},
+  {'nature': 'Land', 'subtext': 'Learn about land'},
+  {'nature': 'Sand', 'subtext': 'Learn about sand'},
+  {'nature': 'Rock', 'subtext': 'Learn about rocks'},
+  {'nature': 'Grass', 'subtext': 'Learn about grass'},
+  {'nature': 'Sky', 'subtext': 'Learn about the sky'},
+  {'nature': 'Clouds', 'subtext': 'Learn about clouds'},
+  {'nature': 'Rainbow', 'subtext': 'Learn about rainbows'},
+  {'nature': 'Sun', 'subtext': 'Learn about the sun'},
+  {'nature': 'Moon', 'subtext': 'Learn about the moon'},
+  {'nature': 'Stars', 'subtext': 'Learn about stars'},
+  {'nature': 'Flower', 'subtext': 'Learn about flowers'},
+];
 
   @override
   Widget build(BuildContext context) {
@@ -34,14 +45,14 @@ class _LettersState extends State<Letters> {
               child: Container(
                 decoration: BoxDecoration(
                   color: const Color(0xFF5A96E3),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.2),
-                        spreadRadius: 5,
-                        blurRadius: 7,
-                        offset: const Offset(0, 3),
-                      ),
-                    ],
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.2),
+                      spreadRadius: 5,
+                      blurRadius: 7,
+                      offset: const Offset(0, 3),
+                    ),
+                  ],
                 ),
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(16, 30, 36, 0),
@@ -52,14 +63,13 @@ class _LettersState extends State<Letters> {
                         alignment: Alignment.topLeft,
                         child: CustomBackButton(
                           onPressed: () {
-                            Navigator.pushNamed(
-                      context, '/homePage');
+                            Navigator.pushNamed(context, '/homePage');
                           },
                         ),
                       ),
                       const Visibility(
                         child: Text(
-                          'Learn Alphabets',
+                          'Learn Nature',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 20,
@@ -68,7 +78,7 @@ class _LettersState extends State<Letters> {
                         ),
                       ),
                       Image.asset(
-                        'assets/lesson-icon/img1.png',
+                        'assets/lesson-icon/img7.png',
                         width: 50,
                         height: 50,
                       ),
@@ -81,7 +91,7 @@ class _LettersState extends State<Letters> {
           SliverList(
             delegate: SliverChildBuilderDelegate(
               (context, index) {
-                final lesson = lessonLetters[index];
+                final lesson = lessonNature[index];
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 30),
                   child: Card(
@@ -98,7 +108,7 @@ class _LettersState extends State<Letters> {
                       ),
                       leading: const Icon(Icons.menu_book_outlined, size: 30),
                       title: Text(
-                        lesson['letter'],
+                        lesson['nature'],
                         style: const TextStyle(
                           fontWeight: FontWeight.w600,
                         ),
@@ -112,7 +122,7 @@ class _LettersState extends State<Letters> {
                   ),
                 );
               },
-              childCount: lessonLetters.length,
+              childCount: lessonNature.length,
             ),
           ),
         ],
@@ -139,8 +149,7 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
   double get maxExtent => maxHeight;
 
   @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
+  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
     return SizedBox.expand(child: child);
   }
 

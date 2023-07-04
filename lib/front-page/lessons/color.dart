@@ -1,24 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application/front-page/lessons/widgets/back_button.dart';
 
-class Letters extends StatefulWidget {
-  const Letters({Key? key}) : super(key: key);
+class ColorLesson extends StatefulWidget {
+  const ColorLesson({Key? key}) : super(key: key);
 
   @override
-  State<Letters> createState() => _LettersState();
+  State<ColorLesson> createState() => _ColorLessonState();
 }
 
-class _LettersState extends State<Letters> {
-  final List<Map<String, dynamic>> lessonLetters = [
-    {'letter': 'Alphabet A-C', 'subtext': 'Learn new signs'},
-    {'letter': 'Alphabet D-F', 'subtext': 'Learn new signs'},
-    {'letter': 'Alphabet G-I', 'subtext': 'Learn new signs'},
-    {'letter': 'Alphabet J-L', 'subtext': 'Learn new signs'},
-    {'letter': 'Alphabet M-O', 'subtext': 'Learn new signs'},
-    {'letter': 'Alphabet P-R', 'subtext': 'Learn new signs'},
-    {'letter': 'Alphabet S-U', 'subtext': 'Learn new signs'},
-    {'letter': 'Alphabet V-X', 'subtext': 'Learn new signs'},
-    {'letter': 'Alphabet Y-Z', 'subtext': 'Learn new signs'},
+class _ColorLessonState extends State<ColorLesson> {
+  final List<Map<String, dynamic>> lessonColors = [
+    {'color': 'Red', 'subtext': 'Learn the sign for red'},
+    {'color': 'Blue', 'subtext': 'Learn the sign for blue'},
+    {'color': 'Green', 'subtext': 'Learn the sign for green'},
+    {'color': 'Yellow', 'subtext': 'Learn the sign for yellow'},
+    {'color': 'Orange', 'subtext': 'Learn the sign for orange'},
+    {'color': 'Purple', 'subtext': 'Learn the sign for purple'},
+    {'color': 'Pink', 'subtext': 'Learn the sign for pink'},
+    {'color': 'Gray', 'subtext': 'Learn the sign for gray'},
+    {'color': 'Light', 'subtext': 'Learn the sign for light'},
+    {'color': 'Dark', 'subtext': 'Learn the sign for dark'},
+    {'color': 'Rainbow', 'subtext': 'Learn the sign for rainbow'},
+    {'color': 'Shiny', 'subtext': 'Learn the sign for shiny'},
+    {'color': 'Bright', 'subtext': 'Learn the sign for bright'},
   ];
 
   @override
@@ -34,14 +38,14 @@ class _LettersState extends State<Letters> {
               child: Container(
                 decoration: BoxDecoration(
                   color: const Color(0xFF5A96E3),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.2),
-                        spreadRadius: 5,
-                        blurRadius: 7,
-                        offset: const Offset(0, 3),
-                      ),
-                    ],
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.2),
+                      spreadRadius: 5,
+                      blurRadius: 7,
+                      offset: const Offset(0, 3),
+                    ),
+                  ],
                 ),
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(16, 30, 36, 0),
@@ -52,14 +56,13 @@ class _LettersState extends State<Letters> {
                         alignment: Alignment.topLeft,
                         child: CustomBackButton(
                           onPressed: () {
-                            Navigator.pushNamed(
-                      context, '/homePage');
+                            Navigator.pushNamed(context, '/homePage');
                           },
                         ),
                       ),
                       const Visibility(
                         child: Text(
-                          'Learn Alphabets',
+                          'Learn Colors',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 20,
@@ -68,7 +71,7 @@ class _LettersState extends State<Letters> {
                         ),
                       ),
                       Image.asset(
-                        'assets/lesson-icon/img1.png',
+                        'assets/lesson-icon/img4.png',
                         width: 50,
                         height: 50,
                       ),
@@ -81,7 +84,7 @@ class _LettersState extends State<Letters> {
           SliverList(
             delegate: SliverChildBuilderDelegate(
               (context, index) {
-                final lesson = lessonLetters[index];
+                final lesson = lessonColors[index];
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 30),
                   child: Card(
@@ -98,9 +101,10 @@ class _LettersState extends State<Letters> {
                       ),
                       leading: const Icon(Icons.menu_book_outlined, size: 30),
                       title: Text(
-                        lesson['letter'],
-                        style: const TextStyle(
+                        lesson['color'],
+                        style: TextStyle(
                           fontWeight: FontWeight.w600,
+                          color: _getColor(lesson['color']),
                         ),
                       ),
                       subtitle: Text(lesson['subtext']),
@@ -112,12 +116,35 @@ class _LettersState extends State<Letters> {
                   ),
                 );
               },
-              childCount: lessonLetters.length,
+              childCount: lessonColors.length,
             ),
           ),
         ],
       ),
     );
+  }
+
+  Color _getColor(String colorName) {
+    switch (colorName.toLowerCase()) {
+      case 'red':
+        return Colors.red;
+      case 'blue':
+        return Colors.blue;
+      case 'green':
+        return Colors.green;
+      case 'yellow':
+        return Colors.yellow;
+      case 'orange':
+        return Colors.orange;
+      case 'purple':
+        return Colors.purple;
+      case 'pink':
+        return Colors.pink;
+      case 'gray':
+        return Colors.grey;
+      default:
+        return Colors.black;
+    }
   }
 }
 
@@ -139,8 +166,7 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
   double get maxExtent => maxHeight;
 
   @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
+  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
     return SizedBox.expand(child: child);
   }
 
