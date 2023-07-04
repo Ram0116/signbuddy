@@ -122,7 +122,7 @@ class _LevelState extends State<Level> {
                   height: 40,
                   child: ElevatedButton(
                     onPressed: selectedLevelIndex != null
-                        ? () => _navigateToHomePage(context)
+                        ? () => _navigateToHomePage(context, selectedLevelIndex!)
                         : null,
                     child: const Text('Continue'),
                   ),
@@ -135,7 +135,7 @@ class _LevelState extends State<Level> {
     );
   }
 
-  Future<void> _navigateToHomePage(BuildContext context) async {
+  Future<void> _navigateToHomePage(BuildContext context,  String selectedLevel) async {
 
    //show the loading screen
   setState(() => loading = true); 
@@ -147,7 +147,14 @@ class _LevelState extends State<Level> {
 
     User? currentUser = FirebaseAuth.instance.currentUser;
     if (currentUser != null) {
-      String selectedLevel;
+     
+
+      // Store the selected level data in Firestore under the user's UID
+      await FirebaseFirestore.instance
+          .collection('userData')
+          .doc(currentUser.uid)
+          .set({'selectedLevel': selectedLevel}, SetOptions(merge: true));
+
       switch (selectedLevelIndex) {
         case 'I’m new to English Sign Language':
           selectedLevel = 'I’m new to English Sign Language';
@@ -167,11 +174,7 @@ class _LevelState extends State<Level> {
           break;
       }
 
-      // Store the selected level data in Firestore under the user's UID
-      await FirebaseFirestore.instance
-          .collection('userData')
-          .doc(currentUser.uid)
-          .set({'selectedLevel': selectedLevel});
+      
 
     }
   } catch (e) {

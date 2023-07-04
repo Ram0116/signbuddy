@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_application/front-page/userdata.dart';
 
-void main() {
-  runApp(const HomePage());
-}
+
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -15,6 +16,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   int _currentIndex = 0;
+  
 
   final List<Widget> _screens = [
     const LessonsScreen(),
@@ -30,7 +32,12 @@ class _HomePageState extends State<HomePage> {
       key: _scaffoldKey,
       appBar: AppBar(
         backgroundColor: const Color(0xFF5A96E3),
-        title: const Text('SignBuddy'),
+       title: const Text('Welcome to Sign Buddy!', 
+       style: TextStyle(
+            color: Colors.white,
+            fontSize: 15,
+            fontFamily: 'FiraSans',
+          ),),
         actions: [
           IconButton(
             icon: const Icon(Icons.feedback),
@@ -73,13 +80,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                           const SizedBox(height: 10),
-                          const Text(
-                            'Juan Dela Cruz', // Replace with the user's name
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                            ),
-                          ),
+                          buildUserData()// class for fetching user
                         ],
                       ),
                     ),
@@ -127,8 +128,39 @@ class _HomePageState extends State<HomePage> {
             ListTile(
               leading: const Icon(Icons.exit_to_app),
               title: const Text('Logout'),
-              onTap: () {
-                // Handle logout tap
+              onTap: () async {
+                bool confirmLogout = await showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    content: const Text(
+                    'Are you sure you want to logout?', 
+                    style: TextStyle(
+                    fontFamily: 'FiraSans',
+                    fontWeight: FontWeight.w300,
+                    )),
+                    actions: [
+                      TextButton(
+                        onPressed: () => Navigator.pop(context, false),
+                        child: const Text('CANCEL', 
+                        style: TextStyle(
+                        color: Colors.black,
+                        )),
+                      ),
+                      TextButton(
+                        onPressed: () => Navigator.pop(context, true),
+                        child: const Text('LOGOUT',
+                        style: TextStyle(
+                        color: Colors.red,
+                        )),
+                      ),
+                    ],
+                  ),
+                );
+
+                if (confirmLogout == true) {
+                  await FirebaseAuth.instance.signOut();
+                  Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+                }
               },
             ),
           ],
@@ -184,6 +216,60 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+
+
+// Widget for greetings with name fetch from cloud firestore
+Widget buildUserData() {
+  return FutureBuilder<DocumentSnapshot>(
+      future: FirebaseFirestore.instance
+          .collection('userData')
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .get(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const CircularProgressIndicator();
+        }
+
+        if (snapshot.hasError) {
+          return const Text('Error fetching data');
+        }
+
+        var userData = snapshot.data!.data() as Map<String, dynamic>;
+        var firstName = userData['firstName'];
+        var lastName = userData['lastName'];
+
+        // Capitalize the first letter
+        String capitalizeFirstLetter(String name) {
+          if (name.isEmpty) {
+            return '';
+          }
+          return name[0].toUpperCase() + name.substring(1);
+        }
+
+        return Text(
+         '${capitalizeFirstLetter(firstName)} ${capitalizeFirstLetter(lastName)}',
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 18,
+            fontFamily: 'FiraSans',
+          ),
+        );
+      },
+  );
+}
+
+String capitalizeFirstLetter(String name) {
+  if (name.isEmpty) {
+    return '';
+  }
+  return name[0].toUpperCase() + name.substring(1);
+}
+
+
+
+
+
+
 
 class LessonsScreen extends StatefulWidget {
   const LessonsScreen({Key? key}) : super(key: key);
