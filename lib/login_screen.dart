@@ -188,7 +188,7 @@ class _LoginPageState extends State<LoginPage> {
           email: _email.text.trim(),
           password: _password.text.trim(),
         );
-
+        
         _email.clear();
         _password.clear();
 
@@ -200,7 +200,7 @@ class _LoginPageState extends State<LoginPage> {
       } catch (e) {
         setState(() {
           loading = false;
-          errorMessage = 'Incorrect Credentials';
+          errorMessage = 'Please check your email and password';
         });
         _showErrorDialog(errorMessage);
       }
@@ -216,7 +216,7 @@ class _LoginPageState extends State<LoginPage> {
             children: [
               Icon(Icons.error_outline, color: Colors.red),
               SizedBox(width: 10),
-              Text('Error',
+              Text('Unable to Login',
               style: TextStyle(
                 fontFamily: 'FiraSans',
                 fontWeight: FontWeight.bold,

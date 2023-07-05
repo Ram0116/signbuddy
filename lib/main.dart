@@ -24,6 +24,8 @@ import 'package:flutter_application/front-page/lessons/alphabet.dart';
 
 import 'front-page/front-page.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -42,7 +44,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return StreamProvider<User?>.value(
+      value: FirebaseAuth.instance.authStateChanges(),
+      initialData: null,
+      child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Sign Buddy',
         theme: ThemeData(
@@ -71,6 +76,7 @@ class MyApp extends StatelessWidget {
             // Add more text styles here as needed.
           ),
         ),
+        initialRoute: '/',
         routes: {
           '/': (context) => FrontPage(),
           '/actors': (context) => Actors(),
@@ -93,6 +99,7 @@ class MyApp extends StatelessWidget {
           '/timeAndDays': (context) => TimeAndDays(),
           '/greeting': (context) => Greetings(),
         },
-      );
+      ),
+    );
   }
 }
