@@ -1,4 +1,5 @@
 {
     "cmake.configureOnOpen": false,
-    "cmake.sourceDirectory": "C:/Users/markd/OneDrive - Polytechnic University of the Philippines/Documents/flutter_application/linux"
+    "cmake.sourceDirectory": "C:/Users/markd/OneDrive - Polytechnic University of the Philippines/Documents/flutter_application/linux",
+    "java.configuration.updateBuildConfiguration": "interactive"
 }

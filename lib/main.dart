@@ -3,6 +3,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application/actors.dart';
 import 'package:flutter_application/forgot_pass.dart';
+import 'package:flutter_application/front-page/assessments/assess_one.dart';
+import 'package:flutter_application/front-page/assessments/assess_six.dart';
+import 'package:flutter_application/front-page/assessments/assess_three.dart';
 import 'package:flutter_application/front-page/choose_language.dart';
 import 'package:flutter_application/front-page/classify_as.dart';
 import 'package:flutter_application/front-page/english_level.dart';
@@ -17,6 +20,7 @@ import 'package:flutter_application/front-page/lessons/nature.dart';
 import 'package:flutter_application/front-page/lessons/food.dart';
 import 'package:flutter_application/front-page/lessons/time-and-days.dart';
 import 'package:flutter_application/front-page/lessons/greeting.dart';
+import 'package:flutter_application/front-page/assessments/assess_five.dart';
 
 import 'package:flutter_application/login_screen.dart';
 import 'package:flutter_application/sign_up.dart';
@@ -44,6 +48,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    int score  = 0;
     return StreamProvider<User?>.value(
       value: FirebaseAuth.instance.authStateChanges(),
       initialData: null,
@@ -78,8 +83,9 @@ class MyApp extends StatelessWidget {
         ),
         initialRoute: '/',
         routes: {
-          '/': (context) => FrontPage(),
+          '/f': (context) => FrontPage(),
           '/actors': (context) => Actors(),
+          '/One': (context) => AssessmentOne(),
           '/get_started': (context) => GetStartedPage(),
           '/signup': (context) => SignupPage(),
           '/chooseLanguage': (context) => ChooseLanguages(),
@@ -99,7 +105,8 @@ class MyApp extends StatelessWidget {
           '/timeAndDays': (context) => TimeAndDays(),
           '/greeting': (context) => Greetings(),
         },
+        home: AssessmentOne(),
       ),
-    );
+    ); 
   }
 }
