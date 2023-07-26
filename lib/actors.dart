@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_application/front-page/lessons/widgets/back_button.dart';
+import 'package:flutter_application/modules/choose_language.dart';
+import 'package:flutter_application/modules/get_started.dart';
+import 'package:flutter_application/modules/sharedwidget/page_transition.dart';
+import 'package:flutter_application/modules/widgets/back_button.dart';
+import 'package:flutter_application/modules/sharedwidget/loading.dart';
 
 class Actors extends StatefulWidget {
   const Actors({Key? key}) : super(key: key);
@@ -17,10 +21,11 @@ class _ActorsState extends State<Actors> {
   ];
 
   String? selectedUser;
+  bool loading = false;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return loading ? Loading(text: 'Loading . . . ') : Scaffold(
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -29,7 +34,7 @@ class _ActorsState extends State<Actors> {
             padding: const EdgeInsets.only(top: 30, left: 14),
             child: CustomBackButton(
               onPressed: () {
-                Navigator.pushNamed(context, '/'); // Handle routing here
+                 Navigator.push(context, SlidePageRoute(page: const GetStartedPage()));; // Handle routing here
               },
             ),
           ),
@@ -130,6 +135,7 @@ class _ActorsState extends State<Actors> {
       if (currentUser != null) {
         // Retrieve the user ID
         final String userId = currentUser.uid;
+         setState(() => loading = true); // Show the loading screen
 
         // Store the data in Firestore with the document named after the user UID
         await FirebaseFirestore.instance
@@ -143,7 +149,7 @@ class _ActorsState extends State<Actors> {
         // Navigate to the appropriate page based on the selected user
         switch (userAs) {
           case 'User Client': // Update the comparison here
-            Navigator.pushNamed(context, '/get_started');
+             Navigator.push(context, SlidePageRoute(page: ChooseLanguages()));
             break;
           case 'PDAO Employee':
             // Add the navigation logic for PDAO Employee here

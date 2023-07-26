@@ -1,8 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_application/front-page/lessons/widgets/back_button.dart';
-import 'package:flutter_application/front-page/lessons/sharedwidget/loading.dart';
+import 'package:flutter_application/login_screen.dart';
+import 'package:flutter_application/modules/choose_language.dart';
+import 'package:flutter_application/modules/get_started.dart';
+import 'package:flutter_application/modules/home_page.dart';
+import 'package:flutter_application/modules/sharedwidget/page_transition.dart';
+import 'package:flutter_application/modules/widgets/back_button.dart';
+import 'package:flutter_application/modules/sharedwidget/loading.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({Key? key}) : super(key: key);
@@ -28,7 +33,7 @@ class _SignupPageState extends State<SignupPage> {
 
   @override
   Widget build(BuildContext context) {
-    return loading ? const Loading(text: 'Loading . . . ',) : SafeArea(
+    return loading ? const Loading(text: 'Setting up your preferences . . .' ,) : SafeArea(
       child: Scaffold(
         body: Form(
           key: _formKey,
@@ -40,12 +45,11 @@ class _SignupPageState extends State<SignupPage> {
                 const SizedBox(height: 50),
                 Container(
                   alignment: Alignment.topLeft,
-                  child: CustomBackButton(
-                    onPressed: () {
-                      Navigator.pushNamed(
-                          context, '/get_started'); // Handle routing here
-                    },
-                  ),
+                  // child: CustomBackButton(
+                  //   onPressed: () {
+                  //      Navigator.push(context, SlidePageRoute(page: const GetStartedPage()));// Handle routing here
+                  //   },
+                  // ),
                 ),
                 const SizedBox(height: 20),
                 _header(),
@@ -69,7 +73,7 @@ class _SignupPageState extends State<SignupPage> {
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
         ),
         SizedBox(height: 10),
-        Text("We would like to learn more about you"),
+        Text("So you dont lose you progress"),
       ],
     );
   }
@@ -253,7 +257,7 @@ class _SignupPageState extends State<SignupPage> {
         const Text("Already have an account?"),
         TextButton(
           onPressed: () {
-            Navigator.pushNamed(context, '/login');
+             Navigator.push(context, SlidePageRoute(page: const LoginPage()));
           },
           child: const Text(
             "Log in",
@@ -316,7 +320,7 @@ class _SignupPageState extends State<SignupPage> {
               .set(newData);
 
           // Perform any additional actions or navigate to the desired screen
-          Navigator.pushNamed(context, '/chooseLanguage');
+           Navigator.push(context, SlidePageRoute(page: ChooseLanguages()));
         } else {
           // Create a new permanent Firebase account
           UserCredential userCredential =
@@ -340,7 +344,7 @@ class _SignupPageState extends State<SignupPage> {
           });
 
           // Perform any additional actions or navigate to the desired screen
-          Navigator.pushNamed(context, '/chooseLanguage');
+           Navigator.push(context, SlidePageRoute(page: HomePage()));
         }
       } catch (e) {
 

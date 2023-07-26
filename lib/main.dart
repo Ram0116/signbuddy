@@ -3,30 +3,32 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application/actors.dart';
 import 'package:flutter_application/forgot_pass.dart';
-import 'package:flutter_application/front-page/assessments/assess_one.dart';
-import 'package:flutter_application/front-page/assessments/assess_six.dart';
-import 'package:flutter_application/front-page/assessments/assess_three.dart';
-import 'package:flutter_application/front-page/choose_language.dart';
-import 'package:flutter_application/front-page/classify_as.dart';
-import 'package:flutter_application/front-page/english_level.dart';
-import 'package:flutter_application/front-page/get_started.dart';
-import 'package:flutter_application/front-page/home_page.dart';
-import 'package:flutter_application/front-page/lessons/color.dart';
-import 'package:flutter_application/front-page/lessons/family.dart';
-import 'package:flutter_application/front-page/lessons/numbers.dart';
-import 'package:flutter_application/front-page/lessons/shape.dart';
-import 'package:flutter_application/front-page/lessons/animals.dart';
-import 'package:flutter_application/front-page/lessons/nature.dart';
-import 'package:flutter_application/front-page/lessons/food.dart';
-import 'package:flutter_application/front-page/lessons/time-and-days.dart';
-import 'package:flutter_application/front-page/lessons/greeting.dart';
-import 'package:flutter_application/front-page/assessments/assess_five.dart';
+import 'package:flutter_application/modules/assessments/assess_one.dart';
+import 'package:flutter_application/modules/assessments/assess_seven.dart';
+import 'package:flutter_application/modules/assessments/assess_eight.dart';
+import 'package:flutter_application/modules/assessments/assess_six.dart';
+import 'package:flutter_application/modules/assessments/assess_three.dart';
+import 'package:flutter_application/modules/choose_language.dart';
+import 'package:flutter_application/modules/classify_as.dart';
+import 'package:flutter_application/modules/english_level.dart';
+import 'package:flutter_application/modules/get_started.dart';
+import 'package:flutter_application/modules/home_page.dart';
+import 'package:flutter_application/modules/lessons/color.dart';
+import 'package:flutter_application/modules/lessons/family.dart';
+import 'package:flutter_application/modules/lessons/numbers.dart';
+import 'package:flutter_application/modules/lessons/shape.dart';
+import 'package:flutter_application/modules/lessons/animals.dart';
+import 'package:flutter_application/modules/lessons/nature.dart';
+import 'package:flutter_application/modules/lessons/food.dart';
+import 'package:flutter_application/modules/lessons/time-and-days.dart';
+import 'package:flutter_application/modules/lessons/greeting.dart';
+import 'package:flutter_application/modules/assessments/assess_five.dart';
 
 import 'package:flutter_application/login_screen.dart';
 import 'package:flutter_application/sign_up.dart';
-import 'package:flutter_application/front-page/lessons/alphabet.dart';
+import 'package:flutter_application/modules/lessons/alphabet.dart';
 
-import 'front-page/front-page.dart';
+import 'modules/front_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
@@ -77,7 +79,7 @@ class MyApp extends StatelessWidget {
               fontFamily: 'FiraSans',
               fontSize: 15,
               fontWeight: FontWeight.bold,
-            ),
+            ), 
             // Add more text styles here as needed.
           ),
         ),
@@ -105,7 +107,9 @@ class MyApp extends StatelessWidget {
           '/timeAndDays': (context) => TimeAndDays(),
           '/greeting': (context) => Greetings(),
         },
-        home: AssessmentOne(),
+        // home: AssessmentOne(),
+        // // home: AssessmentEight(score: score),
+        home: Classify(),
       ),
     ); 
   }

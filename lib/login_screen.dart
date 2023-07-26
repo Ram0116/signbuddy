@@ -2,8 +2,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_application/front-page/lessons/widgets/back_button.dart';
-import 'package:flutter_application/front-page/lessons/sharedwidget/loading.dart';
+import 'package:flutter_application/forgot_pass.dart';
+import 'package:flutter_application/modules/front_page.dart';
+import 'package:flutter_application/modules/home_page.dart';
+import 'package:flutter_application/modules/widgets/back_button.dart';
+import 'package:flutter_application/modules/sharedwidget/loading.dart';
+
+import 'modules/sharedwidget/page_transition.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -37,7 +42,7 @@ class _LoginPageState extends State<LoginPage> {
                     alignment: Alignment.topLeft,
                     child: CustomBackButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, '/');
+                         Navigator.push(context, SlidePageRoute(page: FrontPage()));
                       },
                     ),
                   ),
@@ -155,7 +160,7 @@ class _LoginPageState extends State<LoginPage> {
   _forgotPassword() {
     return TextButton(
       onPressed: () {
-        Navigator.pushNamed(context, '/forgotPass');
+         Navigator.push(context, SlidePageRoute(page: ForgotPass()));
       },
       child: Text("Forgot Password"),
     );
@@ -168,7 +173,7 @@ class _LoginPageState extends State<LoginPage> {
         Text("Don't have an account?"),
         TextButton(
           onPressed: () {
-            Navigator.pushNamed(context, '/');
+             Navigator.push(context, SlidePageRoute(page: FrontPage()));
           },
           child: Text("Sign up"),
         ),
@@ -192,7 +197,7 @@ class _LoginPageState extends State<LoginPage> {
         _email.clear();
         _password.clear();
 
-        Navigator.pushNamed(context, '/homePage');
+        Navigator.push(context, SlidePageRoute(page: HomePage()));
 
         setState(() {
           _obscurePassword = true;
