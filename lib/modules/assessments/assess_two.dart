@@ -23,7 +23,7 @@ class _AssessmentTwoState extends State<AssessmentTwo> {
   final List<Map<String, dynamic>> assessmentQuestions = [
     {
       'question': 'What is being signed here? ',
-      'videoUrl': 'assess-img/question-two/husband.gif',
+      'videoUrl': 'assets/assess-img/question-two/husband.gif',
       'options': ['Husband', 'Niece', 'Hello', 'Mother', 'Sister', 'Tree'],
       'correctAnswerIndex': 0,
     },
@@ -34,7 +34,8 @@ class _AssessmentTwoState extends State<AssessmentTwo> {
     setState(() {
       if (selectedAnswerIndex != -1) {
         answerChecked = true;
-        correctAnswerIndex = assessmentQuestions[currentIndex]['correctAnswerIndex'];
+        correctAnswerIndex =
+            assessmentQuestions[currentIndex]['correctAnswerIndex'];
         if (selectedAnswerIndex == correctAnswerIndex) {
           score++;
         }
@@ -100,41 +101,44 @@ class _AssessmentTwoState extends State<AssessmentTwo> {
       );
     }
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Container(
-          height: 60,
-          child: Row(
-            children: [
-              Icon(
-                icon,
-                color: fontColor,
+    ScaffoldMessenger.of(context)
+        .showSnackBar(
+          SnackBar(
+            content: SizedBox(
+              height: 60,
+              child: Row(
+                children: [
+                  Icon(
+                    icon,
+                    color: fontColor,
+                  ),
+                  const SizedBox(width: 10),
+                  Text(
+                    message,
+                    style: textStyle,
+                  ),
+                ],
               ),
-              const SizedBox(width: 10),
-              Text(
-                message,
-                style: textStyle,
-              ),
-            ],
+            ),
+            backgroundColor: backgroundColor,
+            duration: const Duration(days: 365),
+            dismissDirection: DismissDirection.none,
+            action: SnackBarAction(
+              label: 'Next',
+              textColor: Colors.grey.shade700,
+              backgroundColor: Colors.blue.shade200,
+              onPressed: () {
+                if (currentIndex < assessmentQuestions.length - 1) {
+                  nextQuestion();
+                } else {
+                  navigateToNextAssessment(context);
+                }
+              },
+            ),
           ),
-        ),
-        backgroundColor: backgroundColor,
-        duration: const Duration(days: 365),
-        dismissDirection: DismissDirection.none,
-        action: SnackBarAction(
-          label: 'Next',
-          textColor: Colors.grey.shade700,
-          backgroundColor: Colors.blue.shade200,
-          onPressed: () {
-            if (currentIndex < assessmentQuestions.length - 1) {
-              nextQuestion();
-            } else {
-              navigateToNextAssessment(context);
-            }
-          },
-        ),
-      ),
-    ).closed.then((reason) {
+        )
+        .closed
+        .then((reason) {
       setState(() {
         answerChecked = false;
       });
@@ -154,11 +158,12 @@ class _AssessmentTwoState extends State<AssessmentTwo> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            const SizedBox(height: 100),
             Text(
               question,
               style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 50),
             // Display Video
             GestureDetector(
               onTap: () {
@@ -197,7 +202,8 @@ class _AssessmentTwoState extends State<AssessmentTwo> {
                 ),
                 itemCount: options.length,
                 itemBuilder: (context, index) {
-                  bool isCorrectAnswer = (answerChecked && correctAnswerIndex == index);
+                  bool isCorrectAnswer =
+                      (answerChecked && correctAnswerIndex == index);
                   bool isSelectedAnswer = (selectedAnswerIndex == index);
 
                   return GestureDetector(
@@ -220,16 +226,20 @@ class _AssessmentTwoState extends State<AssessmentTwo> {
                           ),
                           borderRadius: BorderRadius.circular(12),
                           color: isCorrectAnswer
-                              ? Colors.green.withOpacity(0.3) // Correct answer turns green
+                              ? Colors.green.withOpacity(
+                                  0.3) // Correct answer turns green
                               : isSelectedAnswer
-                                  ? Colors.grey.withOpacity(0.3) // Selected answer has a grey tint
-                                  : Colors.transparent, // Default background color
+                                  ? Colors.grey.withOpacity(
+                                      0.3) // Selected answer has a grey tint
+                                  : Colors
+                                      .transparent, // Default background color
                         ),
                         child: Center(
-                            child: Text(
-                              options[index],
-                              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                            ),
+                          child: Text(
+                            options[index],
+                            style: const TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.bold),
+                          ),
                         ),
                       ),
                     ),

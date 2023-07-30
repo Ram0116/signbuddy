@@ -41,6 +41,7 @@ class AssessmentResult extends StatelessWidget {
           children: [
             Column(
               children: [
+                const SizedBox(height: 100),
                 const Text(
                   'Assessment Completed!',
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
@@ -63,9 +64,12 @@ class AssessmentResult extends StatelessWidget {
             const SizedBox(height: 20),
             Text(
               getCongratulatoryMessage(),
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.green),
+              style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.green),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 100),
             Align(
               alignment: Alignment.bottomRight,
               child: Padding(
@@ -75,13 +79,13 @@ class AssessmentResult extends StatelessWidget {
                   height: 40, // Set the desired height for the button
                   child: ElevatedButton(
                     onPressed: () {
-                       Navigator.push(context, SlidePageRoute(page: const SignupPage())); // Handle routing here
+                      Navigator.push(
+                          context, SlidePageRoute(page: const SignupPage()));
+                      // page: const SignupPage())); // Handle routing here
                     },
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all<Color>(
-                        score == totalQuestions
-                            ? Colors.green // Use green color for perfect score
-                            : const Color(0xFF5BD8FF),
+                        const Color(0xFF5BD8FF),
                       ),
                     ),
                     child: Text(

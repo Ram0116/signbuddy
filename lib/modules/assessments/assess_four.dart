@@ -24,7 +24,7 @@ class _AssessmentFourState extends State<AssessmentFour> {
     {
       'question': 'What sign is this?',
       'options': [
-        'assess-img/question-four/grandmother.gif',
+        'assets/assess-img/question-four/grandmother.gif',
       ],
       'correctAnswer': 'grandmother',
     },
@@ -93,58 +93,62 @@ class _AssessmentFourState extends State<AssessmentFour> {
       );
     }
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Container(
-          height: 80, // Increase the height to accommodate both messages
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center, // Align the text in the center vertically
-            children: [
-              Row(
+    ScaffoldMessenger.of(context)
+        .showSnackBar(
+          SnackBar(
+            content: SizedBox(
+              height: 80, // Increase the height to accommodate both messages
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment
+                    .center, // Align the text in the center vertically
                 children: [
-                  Icon(
-                    icon,
-                    color: fontColor,
+                  Row(
+                    children: [
+                      Icon(
+                        icon,
+                        color: fontColor,
+                      ),
+                      const SizedBox(width: 10),
+                      Text(
+                        message,
+                        style: textStyle,
+                      ),
+                    ],
                   ),
-                  const SizedBox(width: 10),
-                  Text(
-                    message,
-                    style: textStyle,
-                  ),
+                  if (message != 'Correct')
+                    Container(
+                      padding: const EdgeInsets.only(top: 3, right: 65),
+                      child: Text(
+                        'Correct answer: $correctAnswer',
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 14,
+                          fontFamily: 'FiraSans',
+                        ),
+                      ),
+                    ),
                 ],
               ),
-              if (message != 'Correct')
-                Container(
-                  padding: const EdgeInsets.only(top: 3, right: 65),
-                  child: Text(
-                    'Correct answer: $correctAnswer',
-                    style: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 14,
-                      fontFamily: 'FiraSans',
-                    ),
-                  ),
-                ),
-            ],
+            ),
+            backgroundColor: backgroundColor,
+            duration: const Duration(days: 365),
+            dismissDirection: DismissDirection.none,
+            action: SnackBarAction(
+              label: 'Next',
+              textColor: Colors.grey.shade700,
+              backgroundColor: Colors.blue.shade200,
+              onPressed: () {
+                if (currentIndex < assessmentQuestions.length - 1) {
+                  nextQuestion();
+                } else {
+                  navigateToNextAssessment(context);
+                }
+              },
+            ),
           ),
-        ),
-        backgroundColor: backgroundColor,
-        duration: const Duration(days: 365),
-        dismissDirection: DismissDirection.none,
-        action: SnackBarAction(
-          label: 'Next',
-          textColor: Colors.grey.shade700,
-          backgroundColor: Colors.blue.shade200,
-          onPressed: () {
-            if (currentIndex < assessmentQuestions.length - 1) {
-              nextQuestion();
-            } else {
-              navigateToNextAssessment(context);
-            }
-          },
-        ),
-      ),
-    ).closed.then((reason) {
+        )
+        .closed
+        .then((reason) {
       setState(() {
         answerChecked = false;
       });
@@ -154,7 +158,8 @@ class _AssessmentFourState extends State<AssessmentFour> {
   @override
   void initState() {
     super.initState();
-    shuffleOptions(assessmentQuestions); // Shuffle options when the widget is first initialized
+    shuffleOptions(
+        assessmentQuestions); // Shuffle options when the widget is first initialized
   }
 
   @override
@@ -169,6 +174,7 @@ class _AssessmentFourState extends State<AssessmentFour> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            const SizedBox(height: 50),
             Text(
               question,
               style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),

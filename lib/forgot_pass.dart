@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application/login_screen.dart';
-import 'package:flutter_application/modules/front_page.dart';
 import 'package:flutter_application/modules/sharedwidget/page_transition.dart';
 import 'package:flutter_application/modules/widgets/back_button.dart';
 

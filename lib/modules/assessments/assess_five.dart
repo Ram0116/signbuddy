@@ -23,7 +23,7 @@ class _AssessmentFiveState extends State<AssessmentFive> {
   final List<Map<String, dynamic>> assessmentQuestions = [
     {
       'question': 'What sign is this?? ',
-      'imageUrl': 'assess-img/question-five/q.png',
+      'imageUrl': 'assets/assess-img/question-five/q.png',
       'options': ['C', 'X', 'F', 'Q', 'M', 'E'],
       'correctAnswerIndex': 3,
     },
@@ -104,7 +104,7 @@ class _AssessmentFiveState extends State<AssessmentFive> {
     ScaffoldMessenger.of(context)
         .showSnackBar(
           SnackBar(
-            content: Container(
+            content: SizedBox(
               height: 60,
               child: Row(
                 children: [
@@ -158,11 +158,12 @@ class _AssessmentFiveState extends State<AssessmentFive> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            const SizedBox(height: 100),
             Text(
               question,
               style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 50),
             // Display Video
             GestureDetector(
               onTap: () {
