@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application/actors.dart';
-import 'package:flutter_application/login_screen.dart';
 import 'package:flutter_application/modules/front_page.dart';
 import 'package:flutter_application/modules/sharedwidget/page_transition.dart';
 import 'package:flutter_application/modules/widgets/back_button.dart';
@@ -106,10 +105,13 @@ class _GetStartedPageState extends State<GetStartedPage> {
                       children: [
                         const SizedBox(height: 50),
                         if (_currentPage < 3)
-                          CustomBackButton(onPressed: () {
-                              Navigator.push(context, SlidePageRoute(page: FrontPage()));
-                            },),
-                        const SizedBox(height: 40),
+                          CustomBackButton(
+                            onPressed: () {
+                              Navigator.push(
+                                  context, SlidePageRoute(page: FrontPage()));
+                            },
+                          ),
+                        const SizedBox(height: 100),
                         const Center(
                           child: Text(
                             'Sign language is beautiful and expressive.',
@@ -135,7 +137,7 @@ class _GetStartedPageState extends State<GetStartedPage> {
                             textAlign: TextAlign.center,
                           ),
                         ),
-                        const SizedBox(height: 20),
+                        const SizedBox(height: 100),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
@@ -219,8 +221,8 @@ class _GetStartedPageState extends State<GetStartedPage> {
                               backgroundColor: Color(0xFF5BD8FF),
                             ),
                             onPressed: () {
-                              Navigator.push(context, SlidePageRoute(page: Actors()));
-
+                              Navigator.push(
+                                  context, SlidePageRoute(page: Actors()));
                             },
                             child: const Text(
                               'Got It!',

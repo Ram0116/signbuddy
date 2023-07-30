@@ -45,7 +45,8 @@ class _ChooseLanguagesState extends State<ChooseLanguages> {
               padding: EdgeInsets.only(top: 50, left: 16),
               child: CustomBackButton(
                 onPressed: () {
-                  Navigator.push(context, SlidePageRoute(page: Actors()));// Handle routing here
+                  Navigator.push(context,
+                      SlidePageRoute(page: Actors())); // Handle routing here
                 },
               ),
             ),
@@ -151,7 +152,7 @@ class _ChooseLanguagesState extends State<ChooseLanguages> {
         // Navigate to the language lesson page or perform any other desired actions
         switch (language) {
           case 'American - English':
-             Navigator.push(context, SlidePageRoute(page: Classify()));
+            Navigator.push(context, SlidePageRoute(page: Classify()));
             break;
           default:
             // Handle the case when the language is not found

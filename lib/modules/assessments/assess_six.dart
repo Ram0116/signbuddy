@@ -4,8 +4,6 @@ import 'package:flutter_application/modules/sharedwidget/page_transition.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_application/modules/assessments/shuffle_options.dart';
 
-
-
 class AssessmentSix extends StatefulWidget {
   final int score;
 
@@ -25,10 +23,10 @@ class _AssessmentSixState extends State<AssessmentSix> {
   final List<Map<String, dynamic>> assessmentQuestions = [
     {
       'question': 'What do you think this sign means?',
-      'videoUrl': 'assess-img/question-six/baby.gif',
+      'videoUrl': 'assets/assess-img/question-six/baby.gif',
       'options': [
-        'assess-img/question-six/baby-img.png',
-        'assess-img/question-six/tree-img.png',
+        'assets/assess-img/question-six/baby.png',
+        'assets/assess-img/question-six/tree.png',
       ],
       'correctAnswerIndex': 0,
     },
@@ -39,7 +37,8 @@ class _AssessmentSixState extends State<AssessmentSix> {
     setState(() {
       if (selectedAnswerIndex != -1) {
         answerChecked = true;
-        correctAnswerIndex = assessmentQuestions[currentIndex]['correctAnswerIndex'];
+        correctAnswerIndex =
+            assessmentQuestions[currentIndex]['correctAnswerIndex'];
         if (selectedAnswerIndex == correctAnswerIndex) {
           score++;
         }
@@ -65,7 +64,6 @@ class _AssessmentSixState extends State<AssessmentSix> {
         ),
       );
     } else {
-
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -106,41 +104,44 @@ class _AssessmentSixState extends State<AssessmentSix> {
       );
     }
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Container(
-          height: 60,
-          child: Row(
-            children: [
-              Icon(
-                icon,
-                color: fontColor,
+    ScaffoldMessenger.of(context)
+        .showSnackBar(
+          SnackBar(
+            content: SizedBox(
+              height: 60,
+              child: Row(
+                children: [
+                  Icon(
+                    icon,
+                    color: fontColor,
+                  ),
+                  const SizedBox(width: 10),
+                  Text(
+                    message,
+                    style: textStyle,
+                  ),
+                ],
               ),
-              const SizedBox(width: 10),
-              Text(
-                message,
-                style: textStyle,
-              ),
-            ],
+            ),
+            backgroundColor: backgroundColor,
+            duration: const Duration(days: 365),
+            dismissDirection: DismissDirection.none,
+            action: SnackBarAction(
+              label: 'Next',
+              textColor: Colors.grey.shade700,
+              backgroundColor: Colors.blue.shade200,
+              onPressed: () {
+                if (currentIndex < assessmentQuestions.length - 1) {
+                  nextQuestion();
+                } else {
+                  navigateToNextAssessment(context);
+                }
+              },
+            ),
           ),
-        ),
-        backgroundColor: backgroundColor,
-        duration: const Duration(days: 365),
-        dismissDirection: DismissDirection.none,
-        action: SnackBarAction(
-          label: 'Next',
-          textColor: Colors.grey.shade700,
-          backgroundColor: Colors.blue.shade200,
-          onPressed: () {
-            if (currentIndex < assessmentQuestions.length - 1) {
-              nextQuestion();
-            } else {
-              navigateToNextAssessment(context);
-            }
-          },
-        ),
-      ),
-    ).closed.then((reason) {
+        )
+        .closed
+        .then((reason) {
       setState(() {
         answerChecked = false;
       });
@@ -160,11 +161,12 @@ class _AssessmentSixState extends State<AssessmentSix> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            const SizedBox(height: 100),
             Text(
               question,
               style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 50),
             // Display Video
             GestureDetector(
               onTap: () {
@@ -204,7 +206,8 @@ class _AssessmentSixState extends State<AssessmentSix> {
                 ),
                 itemCount: options.length,
                 itemBuilder: (context, index) {
-                  bool isCorrectAnswer = (answerChecked && correctAnswerIndex == index);
+                  bool isCorrectAnswer =
+                      (answerChecked && correctAnswerIndex == index);
                   bool isSelectedAnswer = (selectedAnswerIndex == index);
 
                   return GestureDetector(
@@ -215,42 +218,47 @@ class _AssessmentSixState extends State<AssessmentSix> {
                         });
                       }
                     },
-                   child: SizedBox(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: isCorrectAnswer && answerChecked
-                              ? Colors.green // Show green border when the answer is correct and checked
-                              : Colors.grey, // Default border color
-                          width: 2, // Add border width
+                    child: SizedBox(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: isCorrectAnswer && answerChecked
+                                ? Colors
+                                    .green // Show green border when the answer is correct and checked
+                                : Colors.grey, // Default border color
+                            width: 2, // Add border width
+                          ),
+                          borderRadius: BorderRadius.circular(12),
+                          color: isSelectedAnswer
+                              ? Colors.grey.withOpacity(
+                                  0.3) // Selected answer has a grey tint
+                              : isCorrectAnswer && answerChecked
+                                  ? Colors.green // Correct answer turns green
+                                  : Colors
+                                      .transparent, // Default background color
                         ),
-                        borderRadius: BorderRadius.circular(12),
-                        color: isSelectedAnswer
-                            ? Colors.grey.withOpacity(0.3) // Selected answer has a grey tint
-                            : isCorrectAnswer && answerChecked
-                                ? Colors.green // Correct answer turns green
-                                : Colors.transparent, // Default background color
-                      ),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(12),
-                        child: isSelectedAnswer
-                            ? ColorFiltered(
-                                colorFilter: ColorFilter.mode(
-                                  Colors.grey.withOpacity(0.5), // Change the filter color here (e.g., grey tint)
-                                  BlendMode.multiply
-                                ),
-                                child: Image.asset(
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(12),
+                          child: isSelectedAnswer
+                              ? ColorFiltered(
+                                  colorFilter: ColorFilter.mode(
+                                      Colors.grey.withOpacity(
+                                          0.5), // Change the filter color here (e.g., grey tint)
+                                      BlendMode.multiply),
+                                  child: Image.asset(
+                                    options[index],
+                                    fit: BoxFit
+                                        .cover, // Image covers the entire container without any scaling
+                                  ),
+                                )
+                              : Image.asset(
                                   options[index],
-                                  fit: BoxFit.cover, // Image covers the entire container without any scaling
+                                  fit: BoxFit
+                                      .cover, // Image covers the entire container without any scaling
                                 ),
-                              )
-                            : Image.asset(
-                                options[index],
-                                fit: BoxFit.cover, // Image covers the entire container without any scaling
-                              ),
+                        ),
                       ),
                     ),
-                  ),
                   );
                 },
               ),

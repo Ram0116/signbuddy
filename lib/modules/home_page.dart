@@ -1,14 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_application/modules/userdata.dart';
 import 'package:flutter_application/modules/sharedwidget/page_transition.dart';
-import 'package:flutter_application/login_screen.dart';
 import 'package:flutter_application/sign_up.dart';
-
-
-
-
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -21,7 +15,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   int _currentIndex = 0;
-  
 
   final List<Widget> _screens = [
     const LessonsScreen(),
@@ -37,12 +30,14 @@ class _HomePageState extends State<HomePage> {
       key: _scaffoldKey,
       appBar: AppBar(
         backgroundColor: const Color(0xFF5A96E3),
-       title: const Text('Welcome to Sign Buddy!', 
-       style: TextStyle(
+        title: const Text(
+          'Welcome to Sign Buddy!',
+          style: TextStyle(
             color: Colors.white,
             fontSize: 15,
             fontFamily: 'FiraSans',
-          ),),
+          ),
+        ),
         actions: [
           IconButton(
             icon: const Icon(Icons.feedback),
@@ -56,50 +51,53 @@ class _HomePageState extends State<HomePage> {
       drawer: Drawer(
         child: Column(
           children: [
-            DrawerHeader(
-              decoration: const BoxDecoration(
-                color: Color(0xFF5A96E3),
-              ),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.all(
-                          5.0), // do adjust the margin of avatar and Text "Juan Dela Cruz"
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                color: Colors.black,
-                                width: 2.0,
+            SizedBox(
+              height: 250,
+              child: DrawerHeader(
+                decoration: const BoxDecoration(
+                  color: Color(0xFF5A96E3),
+                ),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(
+                            5.0), // do adjust the margin of avatar and Text "Juan Dela Cruz"
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                  color: Colors.black,
+                                  width: 2.0,
+                                ),
+                              ),
+                              child: const CircleAvatar(
+                                radius: 30,
+                                backgroundImage: AssetImage(
+                                    'assets/user_man.png'), // Replace with your avatar image path
                               ),
                             ),
-                            child: const CircleAvatar(
-                              radius: 30,
-                              backgroundImage: AssetImage(
-                                  'assets/user_man.png'), // Replace with your avatar image path
-                            ),
-                          ),
-                          const SizedBox(height: 10),
-                          buildUserData()// class for fetching user
-                        ],
+                            const SizedBox(height: 10),
+                            buildUserData() // class for fetching user
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.close),
-                    color: Colors.white,
-                    onPressed: () {
-                      setState(() {
-                        _scaffoldKey.currentState?.openEndDrawer();
-                      });
-                    },
-                  ),
-                ],
+                    IconButton(
+                      icon: const Icon(Icons.close),
+                      color: Colors.white,
+                      onPressed: () {
+                        setState(() {
+                          _scaffoldKey.currentState?.openEndDrawer();
+                        });
+                      },
+                    ),
+                  ],
+                ),
               ),
             ),
             ListTile(
@@ -137,26 +135,25 @@ class _HomePageState extends State<HomePage> {
                 bool confirmLogout = await showDialog(
                   context: context,
                   builder: (context) => AlertDialog(
-                    content: const Text(
-                    'Are you sure you want to logout?', 
-                    style: TextStyle(
-                    fontFamily: 'FiraSans',
-                    fontWeight: FontWeight.w300,
-                    )),
+                    content: const Text('Are you sure you want to logout?',
+                        style: TextStyle(
+                          fontFamily: 'FiraSans',
+                          fontWeight: FontWeight.w300,
+                        )),
                     actions: [
                       TextButton(
                         onPressed: () => Navigator.pop(context, false),
-                        child: const Text('CANCEL', 
-                        style: TextStyle(
-                        color: Colors.black,
-                        )),
+                        child: const Text('CANCEL',
+                            style: TextStyle(
+                              color: Colors.black,
+                            )),
                       ),
                       TextButton(
                         onPressed: () => Navigator.pop(context, true),
                         child: const Text('LOGOUT',
-                        style: TextStyle(
-                        color: Colors.red,
-                        )),
+                            style: TextStyle(
+                              color: Colors.red,
+                            )),
                       ),
                     ],
                   ),
@@ -164,7 +161,9 @@ class _HomePageState extends State<HomePage> {
 
                 if (confirmLogout == true) {
                   await FirebaseAuth.instance.signOut();
-                  Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+                  // ignore: use_build_context_synchronously
+                  Navigator.pushNamedAndRemoveUntil(
+                      context, '/', (route) => false);
                 }
               },
             ),
@@ -222,7 +221,6 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-
 Widget buildUserData() {
   return FutureBuilder<DocumentSnapshot>(
     future: FirebaseFirestore.instance
@@ -243,26 +241,33 @@ Widget buildUserData() {
       var lastName = userData['lastName'];
 
       // Check if firstName or lastName is empty
-      if (firstName == null || firstName.isEmpty || lastName == null || lastName.isEmpty) {
+      if (firstName == null ||
+          firstName.isEmpty ||
+          lastName == null ||
+          lastName.isEmpty) {
         return Column(
           children: [
             const Text(
               'Save progress, make a profile!',
-              style: TextStyle(color: Colors.white, fontSize: 11, fontFamily: 'FiraSans'),
+              style: TextStyle(
+                  color: Colors.white, fontSize: 11, fontFamily: 'FiraSans'),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 10),
-            Row( // Wrap the buttons in a Row
+            Row(
+              // Wrap the buttons in a Row
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const SizedBox(width: 20), // Add some spacing between the buttons
+                const SizedBox(
+                    width: 20), // Add some spacing between the buttons
                 ElevatedButton(
                   onPressed: () {
                     // Navigate to sign up page
-                    Navigator.push(context, SlidePageRoute(page: const SignupPage()));
+                    Navigator.push(
+                        context, SlidePageRoute(page: const SignupPage()));
                   },
                   style: ElevatedButton.styleFrom(
-                     backgroundColor: Colors.deepPurpleAccent,
+                    backgroundColor: Colors.deepPurpleAccent,
                   ),
                   child: const Text('Sign Up'),
                 ),
@@ -289,15 +294,6 @@ Widget buildUserData() {
   );
 }
 
-
-
-
-
-
-
-
-
-
 class LessonsScreen extends StatefulWidget {
   const LessonsScreen({Key? key}) : super(key: key);
 
@@ -312,13 +308,13 @@ class _LessonsScreenState extends State<LessonsScreen> {
     {'lessonName': 'Alphabet', 'icon': 'lesson-icon/img1.png'},
     {'lessonName': 'Numbers', 'icon': 'lesson-icon/img2.png'},
     {'lessonName': 'Family', 'icon': 'lesson-icon/img3.png'},
-    {'lessonName': 'Colors', 'icon': 'lesson-icon/img4.png'},
-    {'lessonName': 'Shapes', 'icon': 'lesson-icon/img5.png'},
-    {'lessonName': 'Animals', 'icon': 'lesson-icon/img6.png'},
-    {'lessonName': 'Nature', 'icon': 'lesson-icon/img7.png'},
-    {'lessonName': 'Foods and Drinks', 'icon': 'lesson-icon/img8.png'},
-    {'lessonName': 'Time and Days', 'icon': 'lesson-icon/img9.png'},
     {'lessonName': 'Greetings', 'icon': 'lesson-icon/img10.png'},
+    // {'lessonName': 'Colors', 'icon': 'lesson-icon/img4.png'},
+    // {'lessonName': 'Shapes', 'icon': 'lesson-icon/img5.png'},
+    {'lessonName': 'Animals', 'icon': 'lesson-icon/img6.png'},
+    // {'lessonName': 'Nature', 'icon': 'lesson-icon/img7.png'},
+    // {'lessonName': 'Foods and Drinks', 'icon': 'lesson-icon/img8.png'},
+    {'lessonName': 'Time and Days', 'icon': 'lesson-icon/img9.png'},
   ];
 
   @override
@@ -483,7 +479,32 @@ class _AlphabetScreenState extends State<AlphabetScreen> {
   @override
   Widget build(BuildContext context) {
     final letters = [
-      'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'
+      'A',
+      'B',
+      'C',
+      'D',
+      'E',
+      'F',
+      'G',
+      'H',
+      'I',
+      'J',
+      'K',
+      'L',
+      'M',
+      'N',
+      'O',
+      'P',
+      'Q',
+      'R',
+      'S',
+      'T',
+      'U',
+      'V',
+      'W',
+      'X',
+      'Y',
+      'Z'
     ];
 
     return Scaffold(
@@ -507,10 +528,19 @@ class _AlphabetScreenState extends State<AlphabetScreen> {
             child: Container(
               alignment: Alignment.center,
               child: selectedLetter.isNotEmpty
-                  ? Image.asset(
-                      'assets/${letterImages[selectedLetter]}.png',
-                      width: 200,
-                      height: 200,
+                  ? Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.black,
+                          width: 1.0,
+                        ),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Image.asset(
+                        'assets/${letterImages[selectedLetter]}.png',
+                        width: 200,
+                        height: 200,
+                      ),
                     )
                   : const Text(
                       'Tap a letter to see the sign language image',
@@ -524,7 +554,7 @@ class _AlphabetScreenState extends State<AlphabetScreen> {
               crossAxisCount: 7,
               mainAxisSpacing: 8.0,
               crossAxisSpacing: 8.0,
-              padding: const EdgeInsets.all(20),
+              padding: const EdgeInsets.all(10),
               children: List.generate(26, (index) {
                 final letter = letters[index];
                 final isSelected = selectedLetter == letter;
@@ -549,7 +579,7 @@ class _AlphabetScreenState extends State<AlphabetScreen> {
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.transparent,
-                      padding: const EdgeInsets.all(16.0),
+                      padding: const EdgeInsets.all(10),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
@@ -557,7 +587,7 @@ class _AlphabetScreenState extends State<AlphabetScreen> {
                     child: Text(
                       letter,
                       style: TextStyle(
-                        fontSize: 16,
+                        fontSize: 20,
                         color: isSelected ? Colors.white : Colors.black,
                       ),
                     ),
@@ -571,7 +601,6 @@ class _AlphabetScreenState extends State<AlphabetScreen> {
     );
   }
 }
-
 
 class DictionaryScreen extends StatelessWidget {
   const DictionaryScreen({Key? key}) : super(key: key);

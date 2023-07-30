@@ -30,11 +30,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  assets_audio_player: ^3.0.6
   flutter_spinkit: ^5.1.0
   provider: ^6.0.5
   font_awesome_flutter: ^10.5.0
-  get:
+  
   
 
     
@@ -78,6 +77,16 @@ flutter:
     - assets/alphabet/
     - assets/sounds/
     - assets/lesson-icon/
+    - assets/assess-img/
+    - assets/assess-img/question-one/
+    - assets/assess-img/question-two/
+    - assets/assess-img/question-three/
+    - assets/assess-img/question-four/
+    - assets/assess-img/question-five/
+    - assets/assess-img/question-six/
+    - assets/assess-img/question-seven/
+    - assets/assess-img/question-eight/
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

@@ -4,7 +4,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 class Loading extends StatelessWidget {
   final String text;
 
-  const Loading({Key? key, required this.text});
+  const Loading({Key? key, required this.text}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,7 @@ class Loading extends StatelessWidget {
             color: Color(0xFFFEE8B0),
             size: 70.0,
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           DefaultTextStyle(
             style: const TextStyle(
               color: Colors.white,
