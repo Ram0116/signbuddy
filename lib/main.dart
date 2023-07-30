@@ -1,13 +1,12 @@
 // ignore_for_file: prefer_const_constructors, sort_child_properties_last
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application/actors.dart';
 import 'package:flutter_application/forgot_pass.dart';
 import 'package:flutter_application/modules/assessments/assess_one.dart';
-import 'package:flutter_application/modules/assessments/assess_seven.dart';
-import 'package:flutter_application/modules/assessments/assess_eight.dart';
-import 'package:flutter_application/modules/assessments/assess_six.dart';
-import 'package:flutter_application/modules/assessments/assess_three.dart';
+import 'package:flutter_application/modules/assessments/assess_two.dart';
+import 'package:flutter_application/modules/assessments/result.dart';
 import 'package:flutter_application/modules/choose_language.dart';
 import 'package:flutter_application/modules/classify_as.dart';
 import 'package:flutter_application/modules/english_level.dart';
@@ -22,12 +21,12 @@ import 'package:flutter_application/modules/lessons/nature.dart';
 import 'package:flutter_application/modules/lessons/food.dart';
 import 'package:flutter_application/modules/lessons/time-and-days.dart';
 import 'package:flutter_application/modules/lessons/greeting.dart';
-import 'package:flutter_application/modules/assessments/assess_five.dart';
 
 import 'package:flutter_application/login_screen.dart';
 import 'package:flutter_application/sign_up.dart';
 import 'package:flutter_application/modules/lessons/alphabet.dart';
 
+import 'firebase_options.dart';
 import 'modules/front_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -36,12 +35,9 @@ import 'package:provider/provider.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
-      options: FirebaseOptions(
-    apiKey: "AIzaSyB11pipHQpR1ndV2Uai-yQ2mASvFNBkeGg",
-    projectId: "signbuddy-7bced",
-    messagingSenderId: "144171204328",
-    appId: "1:144171204328:web:2c0a4088029f320aae935d",
-  ));
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   runApp(const MyApp());
 }
 
@@ -50,7 +46,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    int score  = 0;
+    int score = 3;
     return StreamProvider<User?>.value(
       value: FirebaseAuth.instance.authStateChanges(),
       initialData: null,
@@ -79,7 +75,7 @@ class MyApp extends StatelessWidget {
               fontFamily: 'FiraSans',
               fontSize: 15,
               fontWeight: FontWeight.bold,
-            ), 
+            ),
             // Add more text styles here as needed.
           ),
         ),
@@ -107,10 +103,13 @@ class MyApp extends StatelessWidget {
           '/timeAndDays': (context) => TimeAndDays(),
           '/greeting': (context) => Greetings(),
         },
-        // home: AssessmentOne(),
+        home: FrontPage(),
         // // home: AssessmentEight(score: score),
-        home: Classify(),
+        // home: AssessmentResult(
+        //   score: score,
+        //   totalQuestions: score,
+        // ),
       ),
-    ); 
+    );
   }
 }

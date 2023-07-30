@@ -26,7 +26,7 @@ class FrontPage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 20),
+                SizedBox(height: 100),
                 Center(
                   child: Image.asset(
                     'assets/front-img.png',
@@ -57,7 +57,8 @@ class FrontPage extends StatelessWidget {
                   alignment: Alignment.center,
                   child: ElevatedButton(
                     onPressed: () {
-                       Navigator.push(context, SlidePageRoute(page: GetStartedPage()));
+                      Navigator.push(
+                          context, SlidePageRoute(page: GetStartedPage()));
                     },
                     child: Text(
                       "Let's Go",
@@ -102,5 +103,3 @@ class FrontPage extends StatelessWidget {
     );
   }
 }
-
-

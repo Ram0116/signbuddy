@@ -23,9 +23,17 @@ class _AssessmentSevenState extends State<AssessmentSeven> {
     {
       'question': 'What sentence does this sign language represent?',
       'videoUrl':
-           'assess-img/question-seven/nephew.gif', // Replace with the path to your GIF file
+          'assets/assess-img/question-seven/nephew.gif', // Replace with the path to your GIF file
       'options': [
-        'My','moon', 'you', 'man', 'Road', 'name', 'is', 'yes', '?',
+        'My',
+        'moon',
+        'you',
+        'man',
+        'Road',
+        'name',
+        'is',
+        'yes',
+        '?',
       ], // Add your word options here
       'correctAnswer': [
         'My',
@@ -107,7 +115,7 @@ class _AssessmentSevenState extends State<AssessmentSeven> {
     ScaffoldMessenger.of(context)
         .showSnackBar(
           SnackBar(
-            content: Container(
+            content: SizedBox(
               height: 60,
               child: Row(
                 children: [
@@ -163,6 +171,7 @@ class _AssessmentSevenState extends State<AssessmentSeven> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            const SizedBox(height: 50),
             Text(
               question,
               style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
@@ -170,31 +179,31 @@ class _AssessmentSevenState extends State<AssessmentSeven> {
             const SizedBox(height: 20),
             // Display GIF
             Container(
-                padding: const EdgeInsets.all(10),
-                margin: const EdgeInsets.symmetric(vertical: 10),
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Colors.grey,
-                    width: 1,
-                  ),
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
+              padding: const EdgeInsets.all(10),
+              margin: const EdgeInsets.symmetric(vertical: 10),
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: Colors.grey,
+                  width: 1,
                 ),
-                child: Image.asset(
-                  videoUrl,
-                  fit: BoxFit.cover,
-                ),
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(12),
               ),
+              child: Image.asset(
+                videoUrl,
+                fit: BoxFit.cover,
+              ),
+            ),
 
             const SizedBox(height: 20),
             const Center(
-              child: Text (
-                    'Your Answer:',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                    ),
+              child: Text(
+                'Your Answer:',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                ),
               ),
             ),
 
@@ -221,32 +230,32 @@ class _AssessmentSevenState extends State<AssessmentSeven> {
                   ),
                 ),
                 if (answerChecked) // <-- Display "Correct Answer" when answer is checked
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const SizedBox(height: 30),
-                        const Center(
-                          child: Text(
-                            'Correct Answer:',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
-                            ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: 30),
+                      const Center(
+                        child: Text(
+                          'Correct Answer:',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
                           ),
                         ),
-                        const SizedBox(height: 10),
-                        Center(
-                          child: Text(
-                            correctAnswer.join(' '),
-                            style: const TextStyle(
-                              color: Colors.green,
-                              fontWeight: FontWeight.w400,
-                            ),
+                      ),
+                      const SizedBox(height: 10),
+                      Center(
+                        child: Text(
+                          correctAnswer.join(' '),
+                          style: const TextStyle(
+                            color: Colors.green,
+                            fontWeight: FontWeight.w400,
                           ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
+                  ),
               ],
             ),
 
@@ -285,11 +294,12 @@ class _AssessmentSevenState extends State<AssessmentSeven> {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          padding:
-                              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                          backgroundColor: selectedWords.contains(options[index])
-                              ? Colors.grey.withOpacity(0.3)
-                              : Colors.transparent,
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 12, vertical: 8),
+                          backgroundColor:
+                              selectedWords.contains(options[index])
+                                  ? Colors.grey.withOpacity(0.3)
+                                  : Colors.transparent,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
                             side: BorderSide(
@@ -316,7 +326,8 @@ class _AssessmentSevenState extends State<AssessmentSeven> {
                 onPressed: selectedWords.isNotEmpty
                     ? () {
                         checkAnswer();
-                        if (selectedWords.join(' ') == correctAnswer.join(' ')) {
+                        if (selectedWords.join(' ') ==
+                            correctAnswer.join(' ')) {
                           showResultSnackbar(
                             context,
                             'Correct',

@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class UserDataWidget extends StatelessWidget {
+  const UserDataWidget({super.key});
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<DocumentSnapshot>(

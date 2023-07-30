@@ -4,11 +4,7 @@ import 'package:flutter_application/modules/sharedwidget/page_transition.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_application/modules/assessments/shuffle_options.dart';
 
-import 'package:firebase_core/firebase_core.dart';
-
 class AssessmentOne extends StatefulWidget {
-
-  
   const AssessmentOne({Key? key}) : super(key: key);
 
   @override
@@ -26,10 +22,10 @@ class _AssessmentOneState extends State<AssessmentOne> {
     {
       'question': 'Select the correct sign for "D"',
       'options': [
-        'assess-img/question-one/d.png',
-        'assess-img/question-one/f.png',
-        'assess-img/question-one/h.png',
-        'assess-img/question-one/m.png',
+        'assets/assess-img/question-one/d.png',
+        'assets/assess-img/question-one/f.png',
+        'assets/assess-img/question-one/h.png',
+        'assets/assess-img/question-one/m.png',
       ],
       'correctAnswerIndex': 0,
     },
@@ -38,7 +34,8 @@ class _AssessmentOneState extends State<AssessmentOne> {
   void checkAnswer() {
     setState(() {
       answerChecked = true;
-      correctAnswerIndex = assessmentQuestions[currentIndex]['correctAnswerIndex'];
+      correctAnswerIndex =
+          assessmentQuestions[currentIndex]['correctAnswerIndex'];
       if (selectedAnswerIndex == correctAnswerIndex) {
         score++;
       }
@@ -59,18 +56,20 @@ class _AssessmentOneState extends State<AssessmentOne> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => AssessmentOne(),
+          builder: (context) => const AssessmentOne(),
         ),
       );
     } else {
-       Navigator.push(context, SlidePageRoute(page: AssessmentTwo(score: score)));
+      Navigator.push(
+          context, SlidePageRoute(page: AssessmentTwo(score: score)));
     }
   }
 
   @override
   void initState() {
     super.initState();
-    shuffleOptions(assessmentQuestions); // Shuffle options when the widget is first initialized
+    shuffleOptions(
+        assessmentQuestions); // Shuffle options when the widget is first initialized
   }
 
   void showResultSnackbar(BuildContext context, String message, IconData icon) {
@@ -98,41 +97,44 @@ class _AssessmentOneState extends State<AssessmentOne> {
       );
     }
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Container(
-          height: 60,
-          child: Row(
-            children: [
-              Icon(
-                icon,
-                color: fontColor,
+    ScaffoldMessenger.of(context)
+        .showSnackBar(
+          SnackBar(
+            content: SizedBox(
+              height: 60,
+              child: Row(
+                children: [
+                  Icon(
+                    icon,
+                    color: fontColor,
+                  ),
+                  const SizedBox(width: 10),
+                  Text(
+                    message,
+                    style: textStyle,
+                  ),
+                ],
               ),
-              const SizedBox(width: 10),
-              Text(
-                message,
-                style: textStyle,
-              ),
-            ],
+            ),
+            backgroundColor: backgroundColor,
+            duration: const Duration(days: 365),
+            dismissDirection: DismissDirection.none,
+            action: SnackBarAction(
+              label: 'Next',
+              textColor: Colors.grey.shade700,
+              backgroundColor: Colors.blue.shade200,
+              onPressed: () {
+                if (currentIndex < assessmentQuestions.length - 1) {
+                  nextQuestion();
+                } else {
+                  navigateToNextAssessment(context);
+                }
+              },
+            ),
           ),
-        ),
-        backgroundColor: backgroundColor,
-        duration: const Duration(days: 365),
-        dismissDirection: DismissDirection.none,
-        action: SnackBarAction(
-          label: 'Next',
-          textColor: Colors.grey.shade700,
-          backgroundColor: Colors.blue.shade200,
-          onPressed: () {
-            if (currentIndex < assessmentQuestions.length - 1) {
-              nextQuestion();
-            } else {
-              navigateToNextAssessment(context);
-            }
-          },
-        ),
-      ),
-    ).closed.then((reason) {
+        )
+        .closed
+        .then((reason) {
       setState(() {
         answerChecked = false;
       });
@@ -150,11 +152,12 @@ class _AssessmentOneState extends State<AssessmentOne> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            const SizedBox(height: 100),
             Text(
               question,
               style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 50),
             // Display Image
             Expanded(
               child: GridView.count(
@@ -163,7 +166,8 @@ class _AssessmentOneState extends State<AssessmentOne> {
                 physics: const NeverScrollableScrollPhysics(),
                 crossAxisSpacing: 16,
                 children: List.generate(options.length, (index) {
-                  bool isCorrectAnswer = (answerChecked && correctAnswerIndex == index);
+                  bool isCorrectAnswer =
+                      (answerChecked && correctAnswerIndex == index);
                   bool isSelectedAnswer = (selectedAnswerIndex == index);
 
                   return GestureDetector(
@@ -187,12 +191,14 @@ class _AssessmentOneState extends State<AssessmentOne> {
                             ? Colors.green.withOpacity(0.3)
                             : isSelectedAnswer
                                 ? Colors.grey.withOpacity(0.3)
-                                : Colors.white, // Set the default color here (e.g., Colors.white)
+                                : Colors
+                                    .white, // Set the default color here (e.g., Colors.white)
                       ),
-                      child: ClipRRect( // ClipRRect to ensure the GIF stays within the container
+                      child: ClipRRect(
+                        // ClipRRect to ensure the GIF stays within the container
                         borderRadius: BorderRadius.circular(12),
                         child: Image.asset(options[index]),
-                      ), 
+                      ),
                     ),
                   );
                 }),

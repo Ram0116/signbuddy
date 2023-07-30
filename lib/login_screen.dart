@@ -28,37 +28,41 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return loading ? Loading(text: 'Loading . . . ') : Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Form(
-            key: _formKey,
-            child: Container(
-              margin: EdgeInsets.fromLTRB(18, 50, 20, 20),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Container(
-                    alignment: Alignment.topLeft,
-                    child: CustomBackButton(
-                      onPressed: () {
-                         Navigator.push(context, SlidePageRoute(page: FrontPage()));
-                      },
+    return loading
+        ? Loading(text: 'Loading . . . ')
+        : Scaffold(
+            body: SafeArea(
+              child: SingleChildScrollView(
+                child: Form(
+                  key: _formKey,
+                  child: Container(
+                    margin: EdgeInsets.fromLTRB(18, 50, 20, 20),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Container(
+                          alignment: Alignment.topLeft,
+                          child: CustomBackButton(
+                            onPressed: () {
+                              Navigator.push(
+                                  context, SlidePageRoute(page: FrontPage()));
+                            },
+                          ),
+                        ),
+                        SizedBox(height: 70),
+                        _header(),
+                        _inputField(),
+                        SizedBox(height: 10),
+                        _forgotPassword(),
+                        SizedBox(height: 10),
+                        _signup(context),
+                      ],
                     ),
                   ),
-                  _header(),
-                  _inputField(),
-                  SizedBox(height: 10),
-                  _forgotPassword(),
-                  SizedBox(height: 10),
-                  _signup(context),
-                ],
+                ),
               ),
             ),
-          ),
-        ),
-      ),
-    );
+          );
   }
 
   _header() {
@@ -160,7 +164,7 @@ class _LoginPageState extends State<LoginPage> {
   _forgotPassword() {
     return TextButton(
       onPressed: () {
-         Navigator.push(context, SlidePageRoute(page: ForgotPass()));
+        Navigator.push(context, SlidePageRoute(page: ForgotPass()));
       },
       child: Text("Forgot Password"),
     );
@@ -173,7 +177,7 @@ class _LoginPageState extends State<LoginPage> {
         Text("Don't have an account?"),
         TextButton(
           onPressed: () {
-             Navigator.push(context, SlidePageRoute(page: FrontPage()));
+            Navigator.push(context, SlidePageRoute(page: FrontPage()));
           },
           child: Text("Sign up"),
         ),
@@ -193,7 +197,7 @@ class _LoginPageState extends State<LoginPage> {
           email: _email.text.trim(),
           password: _password.text.trim(),
         );
-        
+
         _email.clear();
         _password.clear();
 
@@ -222,18 +226,17 @@ class _LoginPageState extends State<LoginPage> {
               Icon(Icons.error_outline, color: Colors.red),
               SizedBox(width: 10),
               Text('Unable to Login',
-              style: TextStyle(
-                fontFamily: 'FiraSans',
-                fontWeight: FontWeight.bold,
-              )),
+                  style: TextStyle(
+                    fontFamily: 'FiraSans',
+                    fontWeight: FontWeight.bold,
+                  )),
             ],
           ),
-          content: Text(
-            message,
-            style: TextStyle(
-              fontFamily: 'FiraSans',
-              fontWeight: FontWeight.normal,
-            )),
+          content: Text(message,
+              style: TextStyle(
+                fontFamily: 'FiraSans',
+                fontWeight: FontWeight.normal,
+              )),
           actions: [
             TextButton(
               child: Text('OK'),

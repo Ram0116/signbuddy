@@ -24,8 +24,8 @@ class _AssessmentThreeState extends State<AssessmentThree> {
     {
       'question': 'Select the correct sign for "Friend"',
       'options': [
-        'assess-img/question-three/grandmother.gif',
-        'assess-img/question-three/friend.gif',
+        'assets/assess-img/question-three/grandmother.gif',
+        'assets/assess-img/question-three/friend.gif',
       ],
       'correctAnswerIndex': 1,
     },
@@ -34,7 +34,8 @@ class _AssessmentThreeState extends State<AssessmentThree> {
   void checkAnswer() {
     setState(() {
       answerChecked = true;
-      correctAnswerIndex = assessmentQuestions[currentIndex]['correctAnswerIndex'];
+      correctAnswerIndex =
+          assessmentQuestions[currentIndex]['correctAnswerIndex'];
       if (selectedAnswerIndex == correctAnswerIndex) {
         score++;
       }
@@ -71,7 +72,8 @@ class _AssessmentThreeState extends State<AssessmentThree> {
   @override
   void initState() {
     super.initState();
-    shuffleOptions(assessmentQuestions); // Shuffle options when the widget is first initialized
+    shuffleOptions(
+        assessmentQuestions); // Shuffle options when the widget is first initialized
   }
 
   void showResultSnackbar(BuildContext context, String message, IconData icon) {
@@ -99,41 +101,44 @@ class _AssessmentThreeState extends State<AssessmentThree> {
       );
     }
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Container(
-          height: 60,
-          child: Row(
-            children: [
-              Icon(
-                icon,
-                color: fontColor,
+    ScaffoldMessenger.of(context)
+        .showSnackBar(
+          SnackBar(
+            content: SizedBox(
+              height: 60,
+              child: Row(
+                children: [
+                  Icon(
+                    icon,
+                    color: fontColor,
+                  ),
+                  const SizedBox(width: 10),
+                  Text(
+                    message,
+                    style: textStyle,
+                  ),
+                ],
               ),
-              const SizedBox(width: 10),
-              Text(
-                message,
-                style: textStyle,
-              ),
-            ],
+            ),
+            backgroundColor: backgroundColor,
+            duration: const Duration(days: 365),
+            dismissDirection: DismissDirection.none,
+            action: SnackBarAction(
+              label: 'Next',
+              textColor: Colors.grey.shade700,
+              backgroundColor: Colors.blue.shade200,
+              onPressed: () {
+                if (currentIndex < assessmentQuestions.length - 1) {
+                  nextQuestion();
+                } else {
+                  navigateToNextAssessment(context);
+                }
+              },
+            ),
           ),
-        ),
-        backgroundColor: backgroundColor,
-        duration: const Duration(days: 365),
-        dismissDirection: DismissDirection.none,
-        action: SnackBarAction(
-          label: 'Next',
-          textColor: Colors.grey.shade700,
-          backgroundColor: Colors.blue.shade200,
-          onPressed: () {
-            if (currentIndex < assessmentQuestions.length - 1) {
-              nextQuestion();
-            } else {
-              navigateToNextAssessment(context);
-            }
-          },
-        ),
-      ),
-    ).closed.then((reason) {
+        )
+        .closed
+        .then((reason) {
       setState(() {
         answerChecked = false;
       });
@@ -152,17 +157,19 @@ class _AssessmentThreeState extends State<AssessmentThree> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            const SizedBox(height: 100),
             Text(
               question,
               style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 50),
             // Display Video
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: List.generate(options.length, (index) {
-                  bool isCorrectAnswer = (answerChecked && correctAnswerIndex == index);
+                  bool isCorrectAnswer =
+                      (answerChecked && correctAnswerIndex == index);
                   bool isSelectedAnswer = (selectedAnswerIndex == index);
 
                   return GestureDetector(
@@ -175,7 +182,8 @@ class _AssessmentThreeState extends State<AssessmentThree> {
                     },
                     child: Container(
                       padding: const EdgeInsets.all(10),
-                      margin: const EdgeInsets.symmetric(horizontal: 30, vertical : 10),
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 30, vertical: 10),
                       decoration: BoxDecoration(
                         border: Border.all(
                           color: Colors.grey,
@@ -186,12 +194,14 @@ class _AssessmentThreeState extends State<AssessmentThree> {
                             ? Colors.green.withOpacity(0.3)
                             : isSelectedAnswer
                                 ? Colors.grey.withOpacity(0.3)
-                                : Colors.white, // Set the default color here (e.g., Colors.white)
+                                : Colors
+                                    .white, // Set the default color here (e.g., Colors.white)
                       ),
-                      child: ClipRRect( // ClipRRect to ensure the GIF stays within the container
+                      child: ClipRRect(
+                        // ClipRRect to ensure the GIF stays within the container
                         borderRadius: BorderRadius.circular(12),
                         child: Image.asset(options[index]),
-                      ), 
+                      ),
                     ),
                   );
                 }),
