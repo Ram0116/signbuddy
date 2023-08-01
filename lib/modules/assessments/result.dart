@@ -88,7 +88,7 @@ class AssessmentResult extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
                 Text(
-                  'You score: $score/$totalQuestions',
+                  'Your score: $score/$totalQuestions',
                   style: const TextStyle(fontSize: 18),
                 ),
                 const SizedBox(height: 20),

@@ -23,22 +23,23 @@ class _AssessmentSevenState extends State<AssessmentSeven> {
     {
       'question': 'What sentence does this sign language represent?',
       'videoUrl':
-          'assets/assess-img/question-seven/nephew.gif', // Replace with the path to your GIF file
+          'assets/assess-img/question-seven/nice.gif', // Replace with the path to your GIF file
       'options': [
         'My',
         'moon',
-        'you',
+        'nice',
         'man',
-        'Road',
-        'name',
-        'is',
+        'day',
+        'Have',
+        'a',
         'yes',
         '?',
       ], // Add your word options here
       'correctAnswer': [
-        'My',
-        'name',
-        'is'
+        'Have',
+        'a',
+        'nice',
+        'day'
       ], // Add the correct sentence here as a list of words
     },
   ];

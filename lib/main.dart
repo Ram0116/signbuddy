@@ -13,6 +13,8 @@ import 'package:flutter_application/modules/classify_as.dart';
 import 'package:flutter_application/modules/english_level.dart';
 import 'package:flutter_application/modules/get_started.dart';
 import 'package:flutter_application/modules/home_page.dart';
+import 'package:flutter_application/modules/lessons/alphabet/a-c/lesson_a.dart';
+import 'package:flutter_application/modules/lessons/alphabet/a-c/lesson_b.dart';
 import 'package:flutter_application/modules/lessons/color.dart';
 import 'package:flutter_application/modules/lessons/family.dart';
 import 'package:flutter_application/modules/lessons/numbers.dart';
@@ -26,7 +28,8 @@ import 'package:flutter_application/modules/assessments/assess_five.dart';
 
 import 'package:flutter_application/login_screen.dart';
 import 'package:flutter_application/sign_up.dart';
-import 'package:flutter_application/modules/lessons/alphabet.dart';
+import 'package:flutter_application/modules/lessons/alphabet/alphabet.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'firebase_options.dart';
 import 'modules/front_page.dart';
@@ -34,11 +37,23 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 
+
+
+
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  bool isHotRestart = true;
+  
+  // Clear the progress data on hot restart
+  if (isHotRestart) {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.clear();
+  }
 
   runApp(const MyApp());
 }
@@ -104,6 +119,7 @@ class MyApp extends StatelessWidget {
           '/food': (context) => Food(),
           '/timeAndDays': (context) => TimeAndDays(),
           '/greeting': (context) => Greetings(),
+
         },
         // home: AssessmentOne(),
         // // home: AssessmentEight(score: score),

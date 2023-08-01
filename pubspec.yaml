@@ -33,6 +33,7 @@ dependencies:
   flutter_spinkit: ^5.1.0
   provider: ^6.0.5
   font_awesome_flutter: ^10.5.0
+  shared_preferences: ^2.2.0
   
   
 
@@ -86,6 +87,9 @@ flutter:
     - assets/assess-img/question-six/
     - assets/assess-img/question-seven/
     - assets/assess-img/question-eight/
+    - assets/alphabet-lesson/
+    - assets/alphabet-lesson/a-c-img/
+    - assets/alphabet-lesson/d-f-img/
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

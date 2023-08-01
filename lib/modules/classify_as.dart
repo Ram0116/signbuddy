@@ -50,7 +50,8 @@ class _ClassifyState extends State<Classify> {
                             context,
                             SlidePageRoute(
                                 page:
-                                    const ChooseLanguages())); // Handle routing here
+                                    const ChooseLanguages())
+                        ); // Handle routing here
                       },
                     ),
                   ),

@@ -94,7 +94,7 @@ class _SignupPageState extends State<SignupPage> {
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
         ),
         SizedBox(height: 10),
-        Text("So you dont lose you progress"),
+        Text("So you dont lose your progress"),
       ],
     );
   }
