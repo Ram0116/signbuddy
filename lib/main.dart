@@ -1,12 +1,13 @@
 // ignore_for_file: prefer_const_constructors, sort_child_properties_last
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application/actors.dart';
 import 'package:flutter_application/forgot_pass.dart';
 import 'package:flutter_application/modules/assessments/assess_one.dart';
-import 'package:flutter_application/modules/assessments/assess_two.dart';
-import 'package:flutter_application/modules/assessments/result.dart';
+import 'package:flutter_application/modules/assessments/assess_seven.dart';
+import 'package:flutter_application/modules/assessments/assess_eight.dart';
+import 'package:flutter_application/modules/assessments/assess_six.dart';
+import 'package:flutter_application/modules/assessments/assess_three.dart';
 import 'package:flutter_application/modules/choose_language.dart';
 import 'package:flutter_application/modules/classify_as.dart';
 import 'package:flutter_application/modules/english_level.dart';
@@ -21,6 +22,7 @@ import 'package:flutter_application/modules/lessons/nature.dart';
 import 'package:flutter_application/modules/lessons/food.dart';
 import 'package:flutter_application/modules/lessons/time-and-days.dart';
 import 'package:flutter_application/modules/lessons/greeting.dart';
+import 'package:flutter_application/modules/assessments/assess_five.dart';
 
 import 'package:flutter_application/login_screen.dart';
 import 'package:flutter_application/sign_up.dart';
@@ -46,7 +48,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    int score = 3;
+    int score = 0;
     return StreamProvider<User?>.value(
       value: FirebaseAuth.instance.authStateChanges(),
       initialData: null,
@@ -103,12 +105,9 @@ class MyApp extends StatelessWidget {
           '/timeAndDays': (context) => TimeAndDays(),
           '/greeting': (context) => Greetings(),
         },
-        home: FrontPage(),
+        // home: AssessmentOne(),
         // // home: AssessmentEight(score: score),
-        // home: AssessmentResult(
-        //   score: score,
-        //   totalQuestions: score,
-        // ),
+        home: FrontPage(),
       ),
     );
   }

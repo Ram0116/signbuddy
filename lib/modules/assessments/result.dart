@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_application/modules/sharedwidget/page_transition.dart';
 import 'package:flutter_application/sign_up.dart';
 
@@ -24,11 +26,49 @@ class AssessmentResult extends StatelessWidget {
     }
   }
 
+  String getLanguageLevel() {
+    String languageKnowledge = getLanguageKnowledge();
+    if (languageKnowledge == "I’m new to English Sign Language") {
+      return "Basic Level";
+    } else if (languageKnowledge ==
+        "I know some sign language words and phrases") {
+      return "Intermediate Level";
+    } else if (languageKnowledge ==
+        "I can have a simple conversation using English Sign Language") {
+      return "Advanced Level";
+    } else {
+      return "Assessment not completed";
+    }
+  }
+
   String getCongratulatoryMessage() {
     if (score == totalQuestions) {
       return "Congratulations! You got a perfect score!";
     } else {
       return "";
+    }
+  }
+
+  Future<void> _storeAssessmentResult() async {
+    try {
+      // Get the current user
+      User? currentUser = FirebaseAuth.instance.currentUser;
+      if (currentUser != null) {
+        String languageLevel =
+            getLanguageLevel(); // Get the modified level string
+
+        // Store the assessment result in Firestore under the user's UID
+        await FirebaseFirestore.instance
+            .collection('userData')
+            .doc(currentUser.uid)
+            .set({
+          'assessmentResult': score,
+          'knowLevel':
+              languageLevel, // Store the modified level string separately
+        }, SetOptions(merge: true));
+      }
+    } catch (e) {
+      print(e.toString());
     }
   }
 
@@ -55,7 +95,7 @@ class AssessmentResult extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    getLanguageKnowledge(),
+                    getLanguageKnowledge(), // Display the original string
                     style: const TextStyle(fontSize: 18),
                   ),
                 ),
@@ -75,13 +115,15 @@ class AssessmentResult extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.only(right: 30),
                 child: SizedBox(
-                  width: 120, // Set the desired width for the button
-                  height: 40, // Set the desired height for the button
+                  width: 120,
+                  height: 40,
                   child: ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async {
+                      await _storeAssessmentResult();
                       Navigator.push(
-                          context, SlidePageRoute(page: const SignupPage()));
-                      // page: const SignupPage())); // Handle routing here
+                        context,
+                        SlidePageRoute(page: const SignupPage()),
+                      );
                     },
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all<Color>(
@@ -91,7 +133,7 @@ class AssessmentResult extends StatelessWidget {
                     child: Text(
                       'Continue',
                       style: TextStyle(
-                        color: Colors.grey[700], // Set the desired font color
+                        color: Colors.grey[700],
                       ),
                     ),
                   ),
