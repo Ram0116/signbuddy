@@ -192,14 +192,14 @@ class _HomePageState extends State<HomePage> {
             icon: Icon(Icons.text_fields),
             label: 'Alphabet',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'Dictionary',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.school),
-            label: 'Study',
-          ),
+          // BottomNavigationBarItem(
+          //   icon: Icon(Icons.search),
+          //   label: 'Dictionary',
+          // ),
+          // BottomNavigationBarItem(
+          //   icon: Icon(Icons.school),
+          //   label: 'Study',
+          // ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings),
             label: 'Settings',
