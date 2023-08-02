@@ -23,11 +23,29 @@ class Congrats extends StatelessWidget {
                     fit: BoxFit.cover,
                   ),
                   const SizedBox(height: 20),
-                  const Text(
-                    'Congratulations! You have completed the lesson!',
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.w400,
+                  const Text.rich(
+                    TextSpan(
+                      children: [
+                        TextSpan(
+                          text: 'Congratulations!',
+                          style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                        ),
+                        TextSpan (
+                          text: '\n'
+                        ),
+                        TextSpan(
+                          text: ' You have completed the lesson!',
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.normal,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ],
                     ),
                     textAlign: TextAlign.center,
                   ),
@@ -42,7 +60,12 @@ class Congrats extends StatelessWidget {
                     TextButton(
                       onPressed: () {
                         // Restart the lessons (replace it with the desired action)
-                        Navigator.pop(context);
+                        Navigator.push(
+                          context,
+                          SlidePageRoute(
+                            page: Letters(),
+                          ),
+                        );
                       },
                       child: Column(
                         children: [
@@ -67,7 +90,9 @@ class Congrats extends StatelessWidget {
                       onPressed: () {
                         // Navigate to the Home page (replace it with the desired route)
                         Navigator.push(
-                            context, SlidePageRoute(page: const Letters()));
+                          context,
+                          SlidePageRoute(page: const Letters()),
+                        );
                       },
                       child: Column(
                         children: [
@@ -75,10 +100,12 @@ class Congrats extends StatelessWidget {
                             Icons.arrow_forward,
                             color: Color(0xFF5BD8FF),
                           ),
-                          Text('Next Lesson',
-                              style: TextStyle(
-                                color: Colors.grey.shade700,
-                              )),
+                          Text(
+                            'Next Lesson',
+                            style: TextStyle(
+                              color: Colors.grey.shade700,
+                            ),
+                          ),
                         ],
                       ),
                     ),

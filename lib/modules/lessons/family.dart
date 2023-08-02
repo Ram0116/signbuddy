@@ -52,7 +52,7 @@ class _FamilyState extends State<Family> {
                   ],
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(16, 30, 36, 0),
+                  padding: const EdgeInsets.fromLTRB(16, 50, 36, 0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
