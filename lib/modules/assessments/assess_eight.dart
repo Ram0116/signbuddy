@@ -24,11 +24,11 @@ class _AssessmentEightState extends State<AssessmentEight> {
       'question': 'Match the corresponding sign',
       'matches': [
         {
-          'video': 'assess-img/question-eight/boyfriend.gif',
+          'video': 'assets/assess-img/question-eight/boyfriend.gif',
           'word': 'Boyfriend',
         },
         {
-          'video': 'assess-img/question-eight/nephew.gif',
+          'video': 'assets/assess-img/question-eight/nephew.gif',
           'word': 'Nephew',
         },
       ],
@@ -77,8 +77,8 @@ class _AssessmentEightState extends State<AssessmentEight> {
         String selectedWord =
             assessmentQuestions[currentIndex]['matches'][selectedWordIndex]['word'];
 
-        if ((selectedVideo == 'assess-img/question-eight/boyfriend.gif' && selectedWord == 'Boyfriend') ||
-            (selectedVideo == 'assess-img/question-eight/nephew.gif' && selectedWord == 'Nephew')) {
+        if ((selectedVideo == 'assets/assess-img/question-eight/boyfriend.gif' && selectedWord == 'Boyfriend') ||
+            (selectedVideo == 'assets/assess-img/question-eight/nephew.gif' && selectedWord == 'Nephew')) {
           score++;
         }
       }
@@ -293,8 +293,8 @@ class _AssessmentEightState extends State<AssessmentEight> {
                           String selectedVideo = videoUrls[selectedVideoIndex];
                           String selectedWord = options[selectedWordIndex];
 
-                          if ((selectedVideo == 'assess-img/question-eight/boyfriend.gif' && selectedWord == 'Boyfriend') ||
-                              (selectedVideo == 'assess-img/question-eight/nephew.gif' && selectedWord == 'Nephew')) {
+                          if ((selectedVideo == 'assets/assess-img/question-eight/boyfriend.gif' && selectedWord == 'Boyfriend') ||
+                              (selectedVideo == 'assets/assess-img/question-eight/nephew.gif' && selectedWord == 'Nephew')) {
                             showResultSnackbar(
                               context,
                               'Correct',

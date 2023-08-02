@@ -53,14 +53,6 @@ class _LessonDState extends State<LessonD> {
     setState(() {
       lessonPage = savedPage;
       // Additional logic to navigate to a specific page based on the saved progress.
-      if (lessonPage == maxPages) {
-        Navigator.push(
-          context,
-          SlidePageRoute(
-            page: LessonE(lessonPage: lessonPage,),
-          ),
-        );
-      }
     });
   }
 
@@ -378,7 +370,6 @@ class _LessonDState extends State<LessonD> {
               FontAwesomeIcons.arrowRight,
               color: Color(0xFF5BD8FF),
             ),
-            SizedBox(height: 7),
             Text(
               'Next',
               style: TextStyle(

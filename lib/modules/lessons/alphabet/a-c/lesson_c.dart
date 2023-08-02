@@ -44,6 +44,12 @@ class _LessonCState extends State<LessonC> {
     shuffleOptions(quizQuestions);
   }
 
+   @override
+  void dispose() {
+    _saveProgress();
+    super.dispose();
+  }
+
   Future<void> _loadProgress() async {
     prefs = await SharedPreferences.getInstance();
     int? savedPage = prefs?.getInt('lesson_c_progress') ?? 1;
@@ -356,7 +362,6 @@ class _LessonCState extends State<LessonC> {
               FontAwesomeIcons.arrowRight,
               color: Color(0xFF5BD8FF),
             ),
-            SizedBox(height: 7),
             Text(
               'Next',
               style: TextStyle(
@@ -415,7 +420,6 @@ class _LessonCState extends State<LessonC> {
                 color: const Color(0xFF5BD8FF),
               ),
             ),
-            const SizedBox(height: 7),
             Opacity(
               opacity: isButtonEnabled ? 1.0 : 0.6,
               child: Text(

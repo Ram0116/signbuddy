@@ -46,20 +46,18 @@ class _LessonAState extends State<LessonA> {
     shuffleOptions(quizQuestions);
   }
 
+   @override
+  void dispose() {
+    _saveProgress();
+    super.dispose();
+  }
+
   Future<void> _loadProgress() async {
     prefs = await SharedPreferences.getInstance();
     int? savedPage = prefs?.getInt('lesson_a_progress') ?? 1;
     setState(() {
       lessonPage = savedPage;
       // Additional logic to navigate to a specific page based on the saved progress.
-      if (lessonPage == maxPages) {
-        Navigator.push(
-          context,
-          SlidePageRoute(
-            page: LessonB(lessonPage: lessonPage,),
-          ),
-        );
-      }
     });
   }
 
@@ -367,7 +365,6 @@ class _LessonAState extends State<LessonA> {
               FontAwesomeIcons.arrowRight,
               color: Color(0xFF5BD8FF),
             ),
-            SizedBox(height: 7),
             Text(
               'Next',
               style: TextStyle(
@@ -426,7 +423,6 @@ class _LessonAState extends State<LessonA> {
                 color: const Color(0xFF5BD8FF),
               ),
             ),
-            const SizedBox(height: 7),
             Opacity(
               opacity: isButtonEnabled ? 1.0 : 0.6,
               child: Text(
