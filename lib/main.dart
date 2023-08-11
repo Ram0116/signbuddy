@@ -37,10 +37,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 
-
-
-
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -48,7 +44,7 @@ void main() async {
   );
 
   bool isHotRestart = true;
-  
+
   // Clear the progress data on hot restart
   if (isHotRestart) {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -119,7 +115,6 @@ class MyApp extends StatelessWidget {
           '/food': (context) => Food(),
           '/timeAndDays': (context) => TimeAndDays(),
           '/greeting': (context) => Greetings(),
-
         },
         // home: AssessmentOne(),
         // // home: AssessmentEight(score: score),

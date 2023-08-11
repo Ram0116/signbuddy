@@ -19,8 +19,8 @@ class _HomePageState extends State<HomePage> {
   final List<Widget> _screens = [
     const LessonsScreen(),
     const AlphabetScreen(),
-    const DictionaryScreen(),
-    const StudyScreen(),
+    // const DictionaryScreen(),
+    // const StudyScreen(),
     const SettingsScreen(),
   ];
 
@@ -602,55 +602,55 @@ class _AlphabetScreenState extends State<AlphabetScreen> {
   }
 }
 
-class DictionaryScreen extends StatelessWidget {
-  const DictionaryScreen({Key? key}) : super(key: key);
+// class DictionaryScreen extends StatelessWidget {
+//   const DictionaryScreen({Key? key}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage(
-                'assets/bg-signbuddy.png'), // Replace with your background image path
-            fit: BoxFit.cover,
-          ),
-        ),
-        child: const Center(
-          child: Text(
-            'Dictionary Screen',
-            style: TextStyle(fontSize: 24),
-          ),
-        ),
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       body: Container(
+//         decoration: const BoxDecoration(
+//           image: DecorationImage(
+//             image: AssetImage(
+//                 'assets/bg-signbuddy.png'), // Replace with your background image path
+//             fit: BoxFit.cover,
+//           ),
+//         ),
+//         child: const Center(
+//           child: Text(
+//             'Dictionary Screen',
+//             style: TextStyle(fontSize: 24),
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
 
-class StudyScreen extends StatelessWidget {
-  const StudyScreen({Key? key}) : super(key: key);
+// class StudyScreen extends StatelessWidget {
+//   const StudyScreen({Key? key}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage(
-                'assets/bg-signbuddy.png'), // Replace with your background image path
-            fit: BoxFit.cover,
-          ),
-        ),
-        child: const Center(
-          child: Text(
-            'Study Screen',
-            style: TextStyle(fontSize: 24),
-          ),
-        ),
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       body: Container(
+//         decoration: const BoxDecoration(
+//           image: DecorationImage(
+//             image: AssetImage(
+//                 'assets/bg-signbuddy.png'), // Replace with your background image path
+//             fit: BoxFit.cover,
+//           ),
+//         ),
+//         child: const Center(
+//           child: Text(
+//             'Study Screen',
+//             style: TextStyle(fontSize: 24),
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({Key? key}) : super(key: key);

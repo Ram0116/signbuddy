@@ -57,7 +57,7 @@ class _ActorsState extends State<Actors> {
                 ),
                 const SizedBox(height: 20),
                 SizedBox(
-                  height: 200,
+                  height: 300,
                   child: ListView.builder(
                     itemCount: user.length,
                     itemBuilder: (context, index) {
@@ -157,11 +157,14 @@ class _ActorsState extends State<Actors> {
         // Navigate to the appropriate page based on the selected user
         switch (userAs) {
           case 'User Client': // Update the comparison here
+            // ignore: use_build_context_synchronously
             Navigator.push(
                 context, SlidePageRoute(page: const ChooseLanguages()));
             break;
           case 'PDAO Employee':
             // Add the navigation logic for PDAO Employee here
+            Navigator.push(
+                context, SlidePageRoute(page: const ChooseLanguages()));
             break;
           default:
             // Handle the case when the actor is not found

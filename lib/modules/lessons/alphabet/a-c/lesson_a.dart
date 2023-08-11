@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application/modules/home_page.dart';
 import 'package:flutter_application/modules/lessons/alphabet/a-c/lesson_b.dart';
 import 'package:flutter_application/modules/lessons/alphabet/alphabet.dart';
 import 'package:flutter_application/modules/widgets/back_button.dart';
@@ -46,7 +45,7 @@ class _LessonAState extends State<LessonA> {
     shuffleOptions(quizQuestions);
   }
 
-   @override
+  @override
   void dispose() {
     _saveProgress();
     super.dispose();
@@ -77,7 +76,9 @@ class _LessonAState extends State<LessonA> {
         Navigator.push(
           context,
           SlidePageRoute(
-            page: LessonB(lessonPage: lessonPage,),
+            page: LessonB(
+              lessonPage: lessonPage,
+            ),
           ),
         );
       }
@@ -92,7 +93,9 @@ class _LessonAState extends State<LessonA> {
         Navigator.push(
           context,
           SlidePageRoute(
-            page: LessonB(lessonPage: lessonPage,),
+            page: LessonB(
+              lessonPage: lessonPage,
+            ),
           ),
         );
       } else {
@@ -171,10 +174,10 @@ class _LessonAState extends State<LessonA> {
         )
         .closed
         .then((reason) {
-          setState(() {
-            answerChecked = false;
-          });
-        });
+      setState(() {
+        answerChecked = false;
+      });
+    });
   }
 
   Widget _buildPageContent() {
@@ -274,7 +277,6 @@ class _LessonAState extends State<LessonA> {
           currentQuestion['question'],
           style: const TextStyle(fontSize: 18),
         ),
-        const SizedBox(height: 50),
         GridView.builder(
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
@@ -349,7 +351,6 @@ class _LessonAState extends State<LessonA> {
       }
     });
   }
-
 
 // Parent widget Tree
   @override

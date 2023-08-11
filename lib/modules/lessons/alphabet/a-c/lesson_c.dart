@@ -8,7 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_application/modules/assessments/shuffle_options.dart';
 
 class LessonC extends StatefulWidget {
-    const LessonC({Key? key, required int lessonPage}) : super(key: key);
+  const LessonC({Key? key, required int lessonPage}) : super(key: key);
 
   @override
   State<LessonC> createState() => _LessonCState();
@@ -44,7 +44,7 @@ class _LessonCState extends State<LessonC> {
     shuffleOptions(quizQuestions);
   }
 
-   @override
+  @override
   void dispose() {
     _saveProgress();
     super.dispose();
@@ -62,24 +62,26 @@ class _LessonCState extends State<LessonC> {
     prefs?.setInt('lesson_c_progress', lessonPage);
   }
 
- void _nextPage() {
-  setState(() {
-    lessonPage++;
-    if (lessonPage > maxPages) {
-      lessonPage = maxPages;
-    }
-    _saveProgress();
-    
-    if (lessonPage > maxPages) {
-      Navigator.push(
-        context,
-        SlidePageRoute(
-         page: LessonC(lessonPage: lessonPage,),
-        ),
-      );
-    }
-  });
-}
+  void _nextPage() {
+    setState(() {
+      lessonPage++;
+      if (lessonPage > maxPages) {
+        lessonPage = maxPages;
+      }
+      _saveProgress();
+
+      if (lessonPage > maxPages) {
+        Navigator.push(
+          context,
+          SlidePageRoute(
+            page: LessonC(
+              lessonPage: lessonPage,
+            ),
+          ),
+        );
+      }
+    });
+  }
 
   void navigateToNextLesson(BuildContext context) {
     if (currentIndex < quizQuestions.length - 1) {
@@ -168,10 +170,10 @@ class _LessonCState extends State<LessonC> {
         )
         .closed
         .then((reason) {
-          setState(() {
-            answerChecked = false;
-          });
-        });
+      setState(() {
+        answerChecked = false;
+      });
+    });
   }
 
   Widget _buildPageContent() {
@@ -215,7 +217,7 @@ class _LessonCState extends State<LessonC> {
           child: ClipRRect(
             borderRadius: BorderRadius.circular(10),
             child: Image.asset(
-              'assets/alphabet-lesson/a-c-img/C.png',
+              'assets/alphabet-lesson/a-c-img/c.png',
             ),
           ),
         ),
@@ -271,7 +273,6 @@ class _LessonCState extends State<LessonC> {
           currentQuestion['question'],
           style: const TextStyle(fontSize: 18),
         ),
-        const SizedBox(height: 50),
         GridView.builder(
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
@@ -346,7 +347,6 @@ class _LessonCState extends State<LessonC> {
       }
     });
   }
-
 
 // Parent widget Tree
   @override
