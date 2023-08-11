@@ -8,7 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_application/modules/assessments/shuffle_options.dart';
 
 class LessonB extends StatefulWidget {
-    const LessonB({Key? key, required int lessonPage}) : super(key: key);
+  const LessonB({Key? key, required int lessonPage}) : super(key: key);
 
   @override
   State<LessonB> createState() => _LessonBState();
@@ -37,14 +37,14 @@ class _LessonBState extends State<LessonB> {
     },
   ];
 
-@override
+  @override
   void initState() {
     super.initState();
     _loadProgress();
     shuffleOptions(quizQuestions);
   }
 
-   @override
+  @override
   void dispose() {
     _saveProgress();
     super.dispose();
@@ -75,7 +75,9 @@ class _LessonBState extends State<LessonB> {
         Navigator.push(
           context,
           SlidePageRoute(
-            page: LessonC(lessonPage: lessonPage,),
+            page: LessonC(
+              lessonPage: lessonPage,
+            ),
           ),
         );
       }
@@ -90,7 +92,9 @@ class _LessonBState extends State<LessonB> {
         Navigator.push(
           context,
           SlidePageRoute(
-            page: LessonC(lessonPage: lessonPage,),
+            page: LessonC(
+              lessonPage: lessonPage,
+            ),
           ),
         );
       } else {
@@ -169,10 +173,10 @@ class _LessonBState extends State<LessonB> {
         )
         .closed
         .then((reason) {
-          setState(() {
-            answerChecked = false;
-          });
-        });
+      setState(() {
+        answerChecked = false;
+      });
+    });
   }
 
   Widget _buildPageContent() {
@@ -272,7 +276,6 @@ class _LessonBState extends State<LessonB> {
           currentQuestion['question'],
           style: const TextStyle(fontSize: 18),
         ),
-        const SizedBox(height: 50),
         GridView.builder(
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
@@ -347,7 +350,6 @@ class _LessonBState extends State<LessonB> {
       }
     });
   }
-
 
 // Parent widget Tree
   @override

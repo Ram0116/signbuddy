@@ -70,9 +70,9 @@ class _SignupPageState extends State<SignupPage> {
                             );
                           },
                           child: const Text(
-                            "Skip",
+                            "Skip for now",
                             style: TextStyle(
-                              color: Color(0xFF5BD8FF),
+                              color: Colors.black,
                               fontWeight: FontWeight.bold,
                             ),
                           ),

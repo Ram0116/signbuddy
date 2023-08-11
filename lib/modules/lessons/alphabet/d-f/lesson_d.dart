@@ -72,7 +72,9 @@ class _LessonDState extends State<LessonD> {
         Navigator.push(
           context,
           SlidePageRoute(
-            page: LessonE(lessonPage: lessonPage,),
+            page: LessonE(
+              lessonPage: lessonPage,
+            ),
           ),
         );
       }
@@ -87,7 +89,9 @@ class _LessonDState extends State<LessonD> {
         Navigator.push(
           context,
           SlidePageRoute(
-            page: LessonE(lessonPage: lessonPage,),
+            page: LessonE(
+              lessonPage: lessonPage,
+            ),
           ),
         );
       } else {
@@ -166,10 +170,10 @@ class _LessonDState extends State<LessonD> {
         )
         .closed
         .then((reason) {
-          setState(() {
-            answerChecked = false;
-          });
-        });
+      setState(() {
+        answerChecked = false;
+      });
+    });
   }
 
   Widget _buildPageContent() {
@@ -258,89 +262,88 @@ class _LessonDState extends State<LessonD> {
   }
 
   Widget _buildQuiz() {
-  Map<String, dynamic> currentQuestion = quizQuestions[currentIndex];
-  List<String> options = currentQuestion['options'];
+    Map<String, dynamic> currentQuestion = quizQuestions[currentIndex];
+    List<String> options = currentQuestion['options'];
 
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.stretch,
-    children: [
-      const SizedBox(height: 30),
-      Text(
-        currentQuestion['question'],
-        style: const TextStyle(fontSize: 18),
-      ),
-      const SizedBox(height: 10),
-      Container(
-        padding: const EdgeInsets.all(0.0),
-        margin:
-            const EdgeInsets.symmetric(horizontal: 100, vertical: 10),
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: Colors.grey, // Border color
-            width: 2, // Border width
-          ),
-          color: Colors.white, // Color inside the border
-          borderRadius: BorderRadius.circular(12), // Border radius
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        const SizedBox(height: 30),
+        Text(
+          currentQuestion['question'],
+          style: const TextStyle(fontSize: 18),
         ),
-        child: Image.asset(
-          'assets/alphabet-lesson/d-f-img/d.png',
-        ),
-      ),
-      const SizedBox(height: 20),
-      GridView.builder(
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3, // Changed to 3 to display options in 2x3 grid
-          crossAxisSpacing: 10,
-          mainAxisSpacing: 10,
-          mainAxisExtent: 60, // Specify the height of each grid item
-        ),
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        itemCount: options.length,
-        itemBuilder: (context, index) {
-          return _buildOption(index, options[index]);
-        },
-      ),
-      const SizedBox(height: 20),
-    ],
-  );
-}
-
-    Widget _buildOption(int index, String option) {
-      bool isSelected = index == selectedAnswerIndex;
-      Color tileColor =
-          isSelected ? Colors.grey.withOpacity(0.5) : Colors.transparent;
-      if (answerChecked && index == correctAnswerIndex) {
-        tileColor = Colors.green.withOpacity(0.3); // Correct answer color
-      } else if (answerChecked && index == selectedAnswerIndex) {
-        tileColor = Colors.red.withOpacity(0.3); // Incorrect selected answer color
-      }
-
-      return GestureDetector(
-        onTap: () {
-          if (!answerChecked) {
-            setState(() {
-              selectedAnswerIndex = index;
-            });
-          }
-        },
-        child: Container(
-          padding: const EdgeInsets.all(10), // Adjust the padding as needed
+        const SizedBox(height: 10),
+        Container(
+          padding: const EdgeInsets.all(0.0),
+          margin: const EdgeInsets.symmetric(horizontal: 100, vertical: 10),
           decoration: BoxDecoration(
             border: Border.all(
-              color: Colors.grey, // Add a border color
-              width: 1.0, // Add border width
+              color: Colors.grey, // Border color
+              width: 2, // Border width
             ),
-            borderRadius: BorderRadius.circular(12),
-            color: tileColor, // Background color based on the answer state
+            color: Colors.white, // Color inside the border
+            borderRadius: BorderRadius.circular(12), // Border radius
           ),
-          child: Center(
-            child: Text(
-              option,
-              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-            ),
+          child: Image.asset(
+            'assets/alphabet-lesson/d-f-img/d.png',
           ),
         ),
+        GridView.builder(
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 3, // Changed to 3 to display options in 2x3 grid
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10,
+            mainAxisExtent: 60, // Specify the height of each grid item
+          ),
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: options.length,
+          itemBuilder: (context, index) {
+            return _buildOption(index, options[index]);
+          },
+        ),
+        const SizedBox(height: 20),
+      ],
+    );
+  }
+
+  Widget _buildOption(int index, String option) {
+    bool isSelected = index == selectedAnswerIndex;
+    Color tileColor =
+        isSelected ? Colors.grey.withOpacity(0.5) : Colors.transparent;
+    if (answerChecked && index == correctAnswerIndex) {
+      tileColor = Colors.green.withOpacity(0.3); // Correct answer color
+    } else if (answerChecked && index == selectedAnswerIndex) {
+      tileColor =
+          Colors.red.withOpacity(0.3); // Incorrect selected answer color
+    }
+
+    return GestureDetector(
+      onTap: () {
+        if (!answerChecked) {
+          setState(() {
+            selectedAnswerIndex = index;
+          });
+        }
+      },
+      child: Container(
+        padding: const EdgeInsets.all(10), // Adjust the padding as needed
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: Colors.grey, // Add a border color
+            width: 1.0, // Add border width
+          ),
+          borderRadius: BorderRadius.circular(12),
+          color: tileColor, // Background color based on the answer state
+        ),
+        child: Center(
+          child: Text(
+            option,
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          ),
+        ),
+      ),
     );
   }
 
@@ -428,7 +431,6 @@ class _LessonDState extends State<LessonD> {
                 color: const Color(0xFF5BD8FF),
               ),
             ),
-            const SizedBox(height: 7),
             Opacity(
               opacity: isButtonEnabled ? 1.0 : 0.6,
               child: Text(
