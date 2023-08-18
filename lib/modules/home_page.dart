@@ -658,7 +658,9 @@ class _DictionaryScreenState extends State<DictionaryScreen> {
       final suggested = dictionary
           .where((entry) {
             final content = entry['content'] ?? '';
-            return content.toLowerCase().startsWith(query.toLowerCase());
+            return content.toLowerCase().startsWith(query.toLowerCase()) ||
+                (query.length >= 2 &&
+                    content.toLowerCase().contains(query.toLowerCase()));
           })
           .map((entry) => entry['content'] as String)
           .toList();
@@ -666,7 +668,7 @@ class _DictionaryScreenState extends State<DictionaryScreen> {
       setState(() {
         this.query = query;
         searchResults = results;
-        termNotFound = results.isEmpty;
+        termNotFound = results.isEmpty && suggested.isEmpty;
         isSearching = true;
         suggestedResults = suggested;
         isSuggestionTapped = false;
@@ -713,52 +715,54 @@ class _DictionaryScreenState extends State<DictionaryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Stack(
-                alignment: Alignment.centerLeft,
-                children: [
-                  TextField(
-                    controller: searchController,
-                    onChanged: search,
-                    decoration: InputDecoration(
-                      hintText: 'Search something....',
-                      prefixIcon: const Icon(
-                        Icons.search,
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Stack(
+              alignment: Alignment.centerLeft,
+              children: [
+                TextField(
+                  controller: searchController,
+                  onChanged: search,
+                  decoration: InputDecoration(
+                    hintText: 'Search something....',
+                    prefixIcon: const Icon(
+                      Icons.search,
+                      color: Colors.deepPurpleAccent,
+                    ),
+                    suffixIcon: isSearching
+                        ? IconButton(
+                            icon: const Icon(
+                              Icons.clear,
+                              color: Colors.redAccent,
+                            ),
+                            onPressed: clearSearch,
+                          )
+                        : null,
+                    focusedBorder: const UnderlineInputBorder(
+                      borderSide: BorderSide(
                         color: Colors.deepPurpleAccent,
-                      ),
-                      suffixIcon: isSearching
-                          ? IconButton(
-                              icon: const Icon(
-                                Icons.clear,
-                                color: Colors.redAccent,
-                              ),
-                              onPressed: clearSearch,
-                            )
-                          : null,
-                      focusedBorder: const UnderlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Colors.deepPurpleAccent,
-                        ),
                       ),
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  if (suggestedResults.isNotEmpty)
-                    Expanded(
-                      child: Column(
-                        children: suggestedResults.map((result) {
-                          return GestureDetector(
-                            onTap: () => selectSuggestedResult(result),
+          ),
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                if (suggestedResults.isNotEmpty)
+                  Expanded(
+                    child: ListView(
+                      children: suggestedResults.map((result) {
+                        return GestureDetector(
+                          onTap: () => selectSuggestedResult(result),
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                                left: 60), // Adjust the value as needed
                             child: Container(
                               padding: const EdgeInsets.all(3),
                               child: Text(
@@ -769,94 +773,94 @@ class _DictionaryScreenState extends State<DictionaryScreen> {
                                 ),
                               ),
                             ),
-                          );
-                        }).toList(),
-                      ),
-                    ),
-                  if (isSuggestionTapped && searchResults.isNotEmpty)
-                    Column(
-                      children: [
-                        searchResults[0]['type'] == 'letter'
-                            ? Container(
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    color: Colors.grey,
-                                    width: 1,
-                                  ),
-                                  borderRadius: BorderRadius.circular(12),
-                                  color: Colors.white,
-                                ),
-                                child: ClipRRect(
-                                  child: Image.asset(
-                                    searchResults[0]['image'],
-                                    height: 200,
-                                    width: 200,
-                                  ),
-                                ),
-                              )
-                            : searchResults[0]['type'] == 'word' ||
-                                    searchResults[0]['type'] == 'phrases'
-                                ? Container(
-                                    decoration: BoxDecoration(
-                                      border: Border.all(
-                                        color: Colors.grey,
-                                        width: 1,
-                                      ),
-                                      borderRadius: BorderRadius.circular(12),
-                                      color: Colors.white,
-                                    ),
-                                    child: ClipRRect(
-                                      child: Image.asset(
-                                        searchResults[0]['gif'],
-                                        height: 190,
-                                        width: 300,
-                                      ),
-                                    ),
-                                  )
-                                : const SizedBox(),
-                        const SizedBox(height: 10),
-                        Text(
-                          searchResults[0]['content'],
-                          style: const TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
                           ),
-                        ),
-                      ],
-                    ),
-                  Visibility(
-                    visible: !isSearching,
-                    child: Image.asset(
-                      'assets/dictionary/search.png',
-                      width: 100,
-                      height: 100,
+                        );
+                      }).toList(),
                     ),
                   ),
-                  if (termNotFound)
-                    Column(
-                      children: [
-                        Text(
-                          '"$query"',
-                          style: const TextStyle(
-                            fontSize: 21,
-                            fontWeight: FontWeight.bold,
-                          ),
+                if (isSuggestionTapped && searchResults.isNotEmpty)
+                  Column(
+                    children: [
+                      searchResults[0]['type'] == 'letter'
+                          ? Container(
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: Colors.grey,
+                                  width: 1,
+                                ),
+                                borderRadius: BorderRadius.circular(12),
+                                color: Colors.white,
+                              ),
+                              child: ClipRRect(
+                                child: Image.asset(
+                                  searchResults[0]['image'],
+                                  height: 200,
+                                  width: 200,
+                                ),
+                              ),
+                            )
+                          : searchResults[0]['type'] == 'word' ||
+                                  searchResults[0]['type'] == 'phrases'
+                              ? Container(
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      color: Colors.grey,
+                                      width: 1,
+                                    ),
+                                    borderRadius: BorderRadius.circular(12),
+                                    color: Colors.white,
+                                  ),
+                                  child: ClipRRect(
+                                    child: Image.asset(
+                                      searchResults[0]['gif'],
+                                      height: 190,
+                                      width: 300,
+                                    ),
+                                  ),
+                                )
+                              : const SizedBox(),
+                      const SizedBox(height: 10),
+                      Text(
+                        searchResults[0]['content'],
+                        style: const TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
                         ),
-                        const Text(
-                          'was not found',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontStyle: FontStyle.italic,
-                          ),
+                      ),
+                    ],
+                  ),
+                Visibility(
+                  visible: !isSearching,
+                  child: Image.asset(
+                    'assets/dictionary/search.png',
+                    width: 100,
+                    height: 100,
+                  ),
+                ),
+                if (termNotFound && !isSuggestionTapped)
+                  Column(
+                    children: [
+                      Text(
+                        '"$query"',
+                        style: const TextStyle(
+                          fontSize: 21,
+                          fontWeight: FontWeight.bold,
                         ),
-                      ],
-                    ),
-                  const SizedBox(height: 20),
-                ],
-              ),
+                      ),
+                      const Text(
+                        'was not found',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontStyle: FontStyle.italic,
+                        ),
+                      ),
+                    ],
+                  ),
+                const SizedBox(height: 20),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
