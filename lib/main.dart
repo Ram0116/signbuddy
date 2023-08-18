@@ -13,8 +13,8 @@ import 'package:flutter_application/modules/classify_as.dart';
 import 'package:flutter_application/modules/english_level.dart';
 import 'package:flutter_application/modules/get_started.dart';
 import 'package:flutter_application/modules/home_page.dart';
-import 'package:flutter_application/modules/lessons/alphabet/a-c/lesson_a.dart';
-import 'package:flutter_application/modules/lessons/alphabet/a-c/lesson_b.dart';
+import 'package:flutter_application/modules/lessons/alphabet/a-d/lesson_a.dart';
+import 'package:flutter_application/modules/lessons/alphabet/a-d/lesson_b.dart';
 import 'package:flutter_application/modules/lessons/color.dart';
 import 'package:flutter_application/modules/lessons/family.dart';
 import 'package:flutter_application/modules/lessons/numbers.dart';
@@ -43,13 +43,13 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  bool isHotRestart = true;
+  // bool isHotRestart = true;
 
-  // Clear the progress data on hot restart
-  if (isHotRestart) {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.clear();
-  }
+  // // Clear the progress data on hot restart
+  // if (isHotRestart) {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   await prefs.clear();
+  // }
 
   runApp(const MyApp());
 }
@@ -118,7 +118,7 @@ class MyApp extends StatelessWidget {
         },
         // home: AssessmentOne(),
         // // home: AssessmentEight(score: score),
-        home: FrontPage(),
+        home: HomePage(),
       ),
     );
   }

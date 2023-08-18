@@ -8,7 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_application/modules/assessments/shuffle_options.dart';
 
 class LessonC extends StatefulWidget {
-  const LessonC({Key? key, required int lessonPage}) : super(key: key);
+  const LessonC({Key? key}) : super(key: key);
 
   @override
   State<LessonC> createState() => _LessonCState();
@@ -28,10 +28,10 @@ class _LessonCState extends State<LessonC> {
     {
       'question': 'Which one here is the "C" sign language?',
       'options': [
-        'assets/alphabet-lesson/a-c-img/s.png',
-        'assets/alphabet-lesson/a-c-img/o.png',
-        'assets/alphabet-lesson/a-c-img/g.png',
-        'assets/alphabet-lesson/a-c-img/c.png',
+        'assets/alphabet-lesson/a-d-img/s.png',
+        'assets/alphabet-lesson/a-d-img/o.png',
+        'assets/alphabet-lesson/a-d-img/g.png',
+        'assets/alphabet-lesson/a-d-img/c.png',
       ],
       'correctAnswerIndex': 3,
     },
@@ -74,9 +74,7 @@ class _LessonCState extends State<LessonC> {
         Navigator.push(
           context,
           SlidePageRoute(
-            page: LessonC(
-              lessonPage: lessonPage,
-            ),
+            page: LessonC(),
           ),
         );
       }
@@ -217,7 +215,7 @@ class _LessonCState extends State<LessonC> {
           child: ClipRRect(
             borderRadius: BorderRadius.circular(10),
             child: Image.asset(
-              'assets/alphabet-lesson/a-c-img/c.png',
+              'assets/alphabet-lesson/a-d-img/c.png',
             ),
           ),
         ),
@@ -253,7 +251,7 @@ class _LessonCState extends State<LessonC> {
           child: ClipRRect(
             borderRadius: BorderRadius.circular(10),
             child: Image.asset(
-              'assets/alphabet-lesson/a-c-img/camel.gif',
+              'assets/alphabet-lesson/a-d-img/camel.gif',
             ),
           ),
         ),

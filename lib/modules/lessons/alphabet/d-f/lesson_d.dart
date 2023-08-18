@@ -8,7 +8,7 @@ import 'package:flutter_application/modules/sharedwidget/page_transition.dart';
 import 'package:flutter_application/modules/assessments/shuffle_options.dart';
 
 class LessonD extends StatefulWidget {
-  const LessonD({Key? key, required int lessonPage}) : super(key: key);
+  const LessonD({Key? key}) : super(key: key);
 
   @override
   State<LessonD> createState() => _LessonDState();
