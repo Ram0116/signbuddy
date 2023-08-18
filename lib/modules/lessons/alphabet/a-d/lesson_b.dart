@@ -1,41 +1,40 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application/modules/lessons/alphabet/a-c/lesson_b.dart';
+import 'package:flutter_application/modules/lessons/alphabet/a-d/lesson_c.dart';
 import 'package:flutter_application/modules/lessons/alphabet/alphabet.dart';
+import 'package:flutter_application/modules/sharedwidget/page_transition.dart';
 import 'package:flutter_application/modules/widgets/back_button.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter_application/modules/sharedwidget/page_transition.dart';
 import 'package:flutter_application/modules/assessments/shuffle_options.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class LessonA extends StatefulWidget {
-  const LessonA({Key? key, required int lessonPage}) : super(key: key);
+class LessonB extends StatefulWidget {
+  const LessonB({Key? key}) : super(key: key);
 
   @override
-  State<LessonA> createState() => _LessonAState();
+  State<LessonB> createState() => _LessonBState();
 }
 
-class _LessonAState extends State<LessonA> {
+class _LessonBState extends State<LessonB> {
   int lessonPage = 1;
   int maxPages = 3; // Change this to the maximum number of pages in the lesson
-  SharedPreferences? prefs;
-  int score = 0;
   int currentIndex = 0;
+  int score = 0;
+  SharedPreferences? prefs;
   bool answerChecked = false;
   int selectedAnswerIndex = -1;
   int correctAnswerIndex = -1;
 
   final List<Map<String, dynamic>> quizQuestions = [
     {
-      'question': 'Which one here is the "A" sign language?',
+      'question': 'Which one here is the "B" sign language?',
       'options': [
-        'assets/alphabet-lesson/a-c-img/a.png',
-        'assets/alphabet-lesson/a-c-img/s.png',
-        'assets/alphabet-lesson/a-c-img/w.png',
-        'assets/alphabet-lesson/a-c-img/x.png',
+        'assets/alphabet-lesson/a-d-img/a.png',
+        'assets/alphabet-lesson/a-d-img/h.png',
+        'assets/alphabet-lesson/a-d-img/b.png',
+        'assets/alphabet-lesson/a-d-img/m.png',
       ],
-      'correctAnswerIndex': 0,
+      'correctAnswerIndex': 2,
     },
-    // Add more quiz questions if needed
   ];
 
   @override
@@ -53,15 +52,14 @@ class _LessonAState extends State<LessonA> {
 
   Future<void> _loadProgress() async {
     prefs = await SharedPreferences.getInstance();
-    int? savedPage = prefs?.getInt('lesson_a_progress') ?? 1;
+    int? savedPage = prefs?.getInt('lesson_b_progress') ?? 1;
     setState(() {
       lessonPage = savedPage;
-      // Additional logic to navigate to a specific page based on the saved progress.
     });
   }
 
   void _saveProgress() async {
-    prefs?.setInt('lesson_a_progress', lessonPage);
+    prefs?.setInt('lesson_b_progress', lessonPage);
   }
 
   void _nextPage() {
@@ -76,9 +74,7 @@ class _LessonAState extends State<LessonA> {
         Navigator.push(
           context,
           SlidePageRoute(
-            page: LessonB(
-              lessonPage: lessonPage,
-            ),
+            page: LessonC(),
           ),
         );
       }
@@ -93,9 +89,7 @@ class _LessonAState extends State<LessonA> {
         Navigator.push(
           context,
           SlidePageRoute(
-            page: LessonB(
-              lessonPage: lessonPage,
-            ),
+            page: LessonC(),
           ),
         );
       } else {
@@ -201,7 +195,7 @@ class _LessonAState extends State<LessonA> {
           child: Padding(
             padding: EdgeInsets.all(15),
             child: Text(
-              'This is the sign language for letter "A"',
+              'This is the sign language for letter "B"',
               textAlign: TextAlign.left,
               style: TextStyle(
                 fontSize: 18,
@@ -221,7 +215,7 @@ class _LessonAState extends State<LessonA> {
           child: ClipRRect(
             borderRadius: BorderRadius.circular(10),
             child: Image.asset(
-              'assets/alphabet-lesson/a-c-img/a.png',
+              'assets/alphabet-lesson/a-d-img/b.png',
             ),
           ),
         ),
@@ -237,7 +231,7 @@ class _LessonAState extends State<LessonA> {
           child: Padding(
             padding: EdgeInsets.all(15),
             child: Text(
-              'This is how you sign "Aunt"',
+              'This is how you sign "Baby"',
               textAlign: TextAlign.left,
               style: TextStyle(
                 fontSize: 18,
@@ -257,7 +251,7 @@ class _LessonAState extends State<LessonA> {
           child: ClipRRect(
             borderRadius: BorderRadius.circular(10),
             child: Image.asset(
-              'assets/alphabet-lesson/a-c-img/aunt.gif',
+              'assets/alphabet-lesson/a-d-img/baby.gif',
             ),
           ),
         ),

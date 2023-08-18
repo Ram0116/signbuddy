@@ -34,6 +34,7 @@ dependencies:
   provider: ^6.0.5
   font_awesome_flutter: ^10.5.0
   shared_preferences: ^2.2.0
+  video_player: ^2.7.0
   
   
 
@@ -77,6 +78,13 @@ flutter:
     - assets/
     - assets/alphabet/
     - assets/sounds/
+    - assets/dictionary/
+    - assets/dictionary/animals/
+    - assets/dictionary/alphabet/
+    - assets/dictionary/shapes/
+    - assets/dictionary/family/
+    - assets/dictionary/color/
+    - assets/dictionary/phrases/
     - assets/lesson-icon/
     - assets/assess-img/
     - assets/assess-img/question-one/
@@ -88,7 +96,7 @@ flutter:
     - assets/assess-img/question-seven/
     - assets/assess-img/question-eight/
     - assets/alphabet-lesson/
-    - assets/alphabet-lesson/a-c-img/
+    - assets/alphabet-lesson/a-d-img/
     - assets/alphabet-lesson/d-f-img/
 
 

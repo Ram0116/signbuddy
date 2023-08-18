@@ -3,6 +3,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_application/modules/sharedwidget/page_transition.dart';
 import 'package:flutter_application/sign_up.dart';
+import 'dart:convert';
+import 'package:flutter/services.dart';
+import 'package:video_player/video_player.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -19,8 +22,8 @@ class _HomePageState extends State<HomePage> {
   final List<Widget> _screens = [
     const LessonsScreen(),
     const AlphabetScreen(),
-    // const DictionaryScreen(),
-    // const StudyScreen(),
+    const DictionaryScreen(),
+    const StudyScreen(),
     const SettingsScreen(),
   ];
 
@@ -192,14 +195,14 @@ class _HomePageState extends State<HomePage> {
             icon: Icon(Icons.text_fields),
             label: 'Alphabet',
           ),
-          // BottomNavigationBarItem(
-          //   icon: Icon(Icons.search),
-          //   label: 'Dictionary',
-          // ),
-          // BottomNavigationBarItem(
-          //   icon: Icon(Icons.school),
-          //   label: 'Study',
-          // ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.search),
+            label: 'Dictionary',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.school),
+            label: 'Study',
+          ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings),
             label: 'Settings',
@@ -602,55 +605,287 @@ class _AlphabetScreenState extends State<AlphabetScreen> {
   }
 }
 
-// class DictionaryScreen extends StatelessWidget {
-//   const DictionaryScreen({Key? key}) : super(key: key);
+class DictionaryScreen extends StatefulWidget {
+  const DictionaryScreen({Key? key}) : super(key: key);
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       body: Container(
-//         decoration: const BoxDecoration(
-//           image: DecorationImage(
-//             image: AssetImage(
-//                 'assets/bg-signbuddy.png'), // Replace with your background image path
-//             fit: BoxFit.cover,
-//           ),
-//         ),
-//         child: const Center(
-//           child: Text(
-//             'Dictionary Screen',
-//             style: TextStyle(fontSize: 24),
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
+  @override
+  _DictionaryScreenState createState() => _DictionaryScreenState();
+}
 
-// class StudyScreen extends StatelessWidget {
-//   const StudyScreen({Key? key}) : super(key: key);
+class _DictionaryScreenState extends State<DictionaryScreen> {
+  List<Map<String, dynamic>> dictionary = [];
+  List<String> suggestedResults = [];
+  List<Map<String, dynamic>> searchResults = [];
+  bool termNotFound = false;
+  TextEditingController searchController = TextEditingController();
+  bool isSearching = false;
+  bool isSuggestionTapped = false;
+  String query = '';
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       body: Container(
-//         decoration: const BoxDecoration(
-//           image: DecorationImage(
-//             image: AssetImage(
-//                 'assets/bg-signbuddy.png'), // Replace with your background image path
-//             fit: BoxFit.cover,
-//           ),
-//         ),
-//         child: const Center(
-//           child: Text(
-//             'Study Screen',
-//             style: TextStyle(fontSize: 24),
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
+  @override
+  void initState() {
+    super.initState();
+    loadDictionaryData();
+  }
+
+  Future<void> loadDictionaryData() async {
+    final loadedDictionary = await loadDictionary();
+    setState(() {
+      dictionary = loadedDictionary;
+    });
+  }
+
+  Future<List<Map<String, dynamic>>> loadDictionary() async {
+    final dictionaryJson =
+        await rootBundle.loadString('assets/dictionary.json');
+    return List<Map<String, dynamic>>.from(json.decode(dictionaryJson));
+  }
+
+  void search(String query) {
+    if (query.isEmpty) {
+      setState(() {
+        searchResults = [];
+        suggestedResults.clear();
+        termNotFound = false;
+        isSearching = false;
+      });
+    } else {
+      final results = dictionary.where((entry) {
+        final content = entry['content'] ?? '';
+        return content.toLowerCase().contains(query.toLowerCase());
+      }).toList();
+
+      final suggested = dictionary
+          .where((entry) {
+            final content = entry['content'] ?? '';
+            return content.toLowerCase().startsWith(query.toLowerCase());
+          })
+          .map((entry) => entry['content'] as String)
+          .toList();
+
+      setState(() {
+        this.query = query;
+        searchResults = results;
+        termNotFound = results.isEmpty;
+        isSearching = true;
+        suggestedResults = suggested;
+        isSuggestionTapped = false;
+      });
+    }
+  }
+
+  void selectSuggestedResult(String result) {
+    setState(() {
+      isSuggestionTapped = true;
+      query = result;
+      searchController.text = result;
+      searchResults =
+          dictionary.where((entry) => entry['content'] == result).toList();
+      suggestedResults.clear(); // Clear suggested results here
+    });
+  }
+
+  void selectSuggestion(String suggestion) {
+    setState(() {
+      query = suggestion;
+      searchController.text = suggestion;
+      isSuggestionTapped = true;
+    });
+    search(suggestion);
+  }
+
+  void clearSearch() {
+    setState(() {
+      searchController.clear();
+      suggestedResults.clear();
+      termNotFound = false;
+      isSearching = false;
+      isSuggestionTapped = false; // Reset suggestion tapped status
+    });
+  }
+
+  @override
+  void dispose() {
+    searchController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Stack(
+                alignment: Alignment.centerLeft,
+                children: [
+                  TextField(
+                    controller: searchController,
+                    onChanged: search,
+                    decoration: InputDecoration(
+                      hintText: 'Search something....',
+                      prefixIcon: const Icon(
+                        Icons.search,
+                        color: Colors.deepPurpleAccent,
+                      ),
+                      suffixIcon: isSearching
+                          ? IconButton(
+                              icon: const Icon(
+                                Icons.clear,
+                                color: Colors.redAccent,
+                              ),
+                              onPressed: clearSearch,
+                            )
+                          : null,
+                      focusedBorder: const UnderlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.deepPurpleAccent,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  if (suggestedResults.isNotEmpty)
+                    Expanded(
+                      child: Column(
+                        children: suggestedResults.map((result) {
+                          return GestureDetector(
+                            onTap: () => selectSuggestedResult(result),
+                            child: Container(
+                              padding: const EdgeInsets.all(3),
+                              child: Text(
+                                result,
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ),
+                          );
+                        }).toList(),
+                      ),
+                    ),
+                  if (isSuggestionTapped && searchResults.isNotEmpty)
+                    Column(
+                      children: [
+                        searchResults[0]['type'] == 'letter'
+                            ? Container(
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: Colors.grey,
+                                    width: 1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(12),
+                                  color: Colors.white,
+                                ),
+                                child: ClipRRect(
+                                  child: Image.asset(
+                                    searchResults[0]['image'],
+                                    height: 200,
+                                    width: 200,
+                                  ),
+                                ),
+                              )
+                            : searchResults[0]['type'] == 'word' ||
+                                    searchResults[0]['type'] == 'phrases'
+                                ? Container(
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                        color: Colors.grey,
+                                        width: 1,
+                                      ),
+                                      borderRadius: BorderRadius.circular(12),
+                                      color: Colors.white,
+                                    ),
+                                    child: ClipRRect(
+                                      child: Image.asset(
+                                        searchResults[0]['gif'],
+                                        height: 190,
+                                        width: 300,
+                                      ),
+                                    ),
+                                  )
+                                : const SizedBox(),
+                        const SizedBox(height: 10),
+                        Text(
+                          searchResults[0]['content'],
+                          style: const TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  Visibility(
+                    visible: !isSearching,
+                    child: Image.asset(
+                      'assets/dictionary/search.png',
+                      width: 100,
+                      height: 100,
+                    ),
+                  ),
+                  if (termNotFound)
+                    Column(
+                      children: [
+                        Text(
+                          '"$query"',
+                          style: const TextStyle(
+                            fontSize: 21,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const Text(
+                          'was not found',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontStyle: FontStyle.italic,
+                          ),
+                        ),
+                      ],
+                    ),
+                  const SizedBox(height: 20),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class StudyScreen extends StatelessWidget {
+  const StudyScreen({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage(
+                'assets/bg-signbuddy.png'), // Replace with your background image path
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: const Center(
+          child: Text(
+            'Study Screen',
+            style: TextStyle(fontSize: 24),
+          ),
+        ),
+      ),
+    );
+  }
+}
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({Key? key}) : super(key: key);

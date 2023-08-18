@@ -19,11 +19,11 @@ class _ChooseLanguagesState extends State<ChooseLanguages> {
   final List<Map<String, dynamic>> languages = [
     {'name': 'American - English', 'flag': 'america.png'},
     {'name': 'Filipino', 'flag': 'ph.png'},
-    {'name': 'Spanish', 'flag': 'spain.png'},
-    {'name': 'Arabic', 'flag': 'arab.png'},
-    {'name': 'British - English', 'flag': 'uk.png'},
-    {'name': 'Chinese', 'flag': 'china.png'},
-    {'name': 'French', 'flag': 'france.png'},
+    // {'name': 'Spanish', 'flag': 'spain.png'},
+    // {'name': 'Arabic', 'flag': 'arab.png'},
+    // {'name': 'British - English', 'flag': 'uk.png'},
+    // {'name': 'Chinese', 'flag': 'china.png'},
+    // {'name': 'French', 'flag': 'france.png'},
   ];
 
   @override
